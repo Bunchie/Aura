@@ -1,16 +1,15 @@
 "use strict";
 
 import React, {Component} from "react";
-import Test from "../../components/Test";
 
-class AdminPanel extends Component {
+class Test extends Component {
   render() {
     return (
       <section>
-        <Test/>
+        Hello Admin
       </section>
     );
   }
 }
 
-export default AdminPanel;
+export default Test;

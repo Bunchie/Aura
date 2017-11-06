@@ -79,6 +79,5 @@
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('js/test_app.js') }}"></script>
 </body>
 </html>
