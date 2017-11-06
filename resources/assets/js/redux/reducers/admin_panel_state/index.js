@@ -15,7 +15,7 @@ export default function adminPanelState(state = initialState, action) {
 
   switch (action.type) {
 
-    case constants.adminPanelState.ADD_ELEMENT_TO_TEST: {
+    case constants.adminPanelState.ADD_ITEM_TO_TEST: {
       return Object.assign({}, state, {
         test: action.payload
       });

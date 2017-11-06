@@ -1,7 +1,10 @@
 "use strict";
 
 import React, {Component} from "react";
-import CreateTest from "../../components/CreateTest";
+import {Switch} from 'react-router-dom';
+
+import router from "../../router/admin";
+import HelperRoute from "../../helpers/HelperRoute";
 
 class AdminPanel extends Component {
 
@@ -11,8 +14,12 @@ class AdminPanel extends Component {
 
   render() {
     return (
-      <section>
-        <CreateTest/>
+      <section className="row">
+        <Switch>
+          {router.map((route, i) => (
+            <HelperRoute key={i} {...route}/>
+          ))}
+        </Switch>
       </section>
     );
   }
