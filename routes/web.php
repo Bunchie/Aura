@@ -12,13 +12,13 @@
 */
 
 Route::get('/', function () {
-    dd(Auth::user()->is("Admin"));
-
     return view('test_panel.index');
 });
 
 Auth::routes();
 
-Route::get('/admin', function () {
-    return view('admin_panel.index');
+Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
+    Route::get('/', function () {
+        return view('admin_panel.index');
+    });
 });
