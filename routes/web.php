@@ -11,8 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('test_panel.index');
+
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect('/');
 });
 
 Auth::routes();
@@ -22,3 +24,7 @@ Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
         return view('admin_panel.index');
     });
 });
+
+Route::get('{any}', function () {
+    return view('test_panel.index');
+})->where('any', '.*');
