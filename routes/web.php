@@ -12,9 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    dd(Auth::user()->is("Admin"));
+
+    return view('test_panel.index');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin', function () {
+    return view('admin_panel.index');
+});
