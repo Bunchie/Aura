@@ -1,13 +1,18 @@
 "use strict";
 
 import React, {Component} from "react";
-import Test from "../../components/Test";
+import CreateTest from "../../components/CreateTest";
 
 class AdminPanel extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <section>
-        <Test/>
+        <CreateTest/>
       </section>
     );
   }
