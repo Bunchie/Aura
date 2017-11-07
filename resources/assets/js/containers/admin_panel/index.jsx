@@ -14,12 +14,14 @@ class AdminPanel extends Component {
 
   render() {
     return (
-      <section className="row">
-        <Switch>
-          {router.map((route, i) => (
-            <HelperRoute key={i} {...route}/>
-          ))}
-        </Switch>
+      <section className="container">
+        <div className="row">
+          <Switch>
+            {router.map((route, i) => (
+              <HelperRoute key={i} {...route}/>
+            ))}
+          </Switch>
+        </div>
       </section>
     );
   }
