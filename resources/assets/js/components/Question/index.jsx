@@ -4,8 +4,9 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 
 import constants from "../../constants";
-import TextItem from "../TextItem";
 
+import RadioItem from "../RadioItem";
+import TextItem from "../TextItem";
 
 const mapStateToProps = state => {
   return {
@@ -27,31 +28,38 @@ const mapDispatchToProps = dispatch => {
 class Question extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      itemId: this.props.item.id
+    };
+
     this.addText = this.addText.bind(this);
     this.addRadio = this.addRadio.bind(this);
-    this.addRadioItem = this.addRadioItem.bind(this);
     this.addCheckbox = this.addCheckbox.bind(this);
+
     this.deleteQuestion = this.deleteQuestion.bind(this);
     this.changeNameOfTheQuestion = this.changeNameOfTheQuestion.bind(this);
   }
 
   changeNameOfTheQuestion(event) {
+
+    const idx = this.state.itemId;
+
     this.props.changeQuestion(
       {
-        [this.props.item.id]: Object.assign(
-          {}, this.props.testElements.testItems[this.props.item.id], {question: event.currentTarget.value}
+        [idx]: Object.assign(
+          {}, this.props.testElements.testItems[idx], {question: event.currentTarget.value}
         )
       }
     );
   }
 
   deleteQuestion() {
-    this.props.deleteQuestion(this.props.item.id);
+    this.props.deleteQuestion(this.state.itemId);
   }
 
   addText() {
 
-    const idx = this.props.item.id;
+    const idx = this.state.itemId;
 
     this.props.changeQuestion(
       {
@@ -69,7 +77,7 @@ class Question extends Component {
 
   addRadio() {
 
-    const idx = this.props.item.id;
+    const idx = this.state.itemId;
 
     this.props.changeQuestion(
       {
@@ -86,63 +94,20 @@ class Question extends Component {
     );
   }
 
-  addRadioItem() {
-
-    const idx = this.props.item.id;
-    const items = this.props.testElements.testItems[idx];
-
-    items.answers.answerItems[items.answers.answerQuantityItems] = {text: ''};
-
-    this.props.changeQuestion(
-      {
-        [idx]: Object.assign({}, items, Object.assign({}, items.answers, {
-            answerItems: items.answers.answerItems,
-            answerQuantityItems: items.answers.answerQuantityItems++
-          })
-        )
-      }
-    );
-  }
-
   addCheckbox() {
+
   }
 
   render() {
 
     let content = "";
+    const idx = this.state.itemId;
+    const answerType = this.props.testElements.testItems[idx].answers.answerType;
 
-    if (this.props.testElements.testItems[this.props.item.id].answers.answerType === constants.typeAnswer.TEXT) {
+    if (answerType === constants.typeAnswer.TEXT) {
       content = <TextItem/>
-    } else if (this.props.testElements.testItems[this.props.item.id].answers.answerType === constants.typeAnswer.RADIO) {
-      content = (
-        <div className="form-group">
-          <button className="btn btn-default btn-block" onClick={this.addRadioItem}>Add</button>
-          <form>
-            {
-              this.props.testElements.testItems[this.props.item.id].answers.answerItems.map((item, i) => {
-                return (
-                  <div key={i} className="form-inline">
-
-                    <input
-                      style={{width: '10%'}}
-                      type="radio"
-                      name={`radio-${this.props.item.id}`}
-                      className="form-control"
-                    />
-
-
-                    <input
-                      style={{width: '90%'}}
-                      type="text"
-                      className="form-control"
-                    />
-
-                  </div>
-                );
-              })
-            }
-          </form>
-        </div>);
+    } else if (answerType === constants.typeAnswer.RADIO) {
+      content = <RadioItem item={this.props.item}/>
     }
 
     return (
@@ -163,7 +128,7 @@ class Question extends Component {
               className="form-control"
               placeholder="Input your question"
               onChange={this.changeNameOfTheQuestion}
-              value={this.props.testElements.testItems[this.props.item.id].name}
+              value={this.props.testElements.testItems[idx].name}
             />
           </div>
           <hr/>
