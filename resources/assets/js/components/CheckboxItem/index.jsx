@@ -1,7 +1,7 @@
 "use strict";
 
-import React, {Component} from "react";
 import {connect} from "react-redux";
+import React, {Component} from "react";
 
 import constants from "../../constants";
 
@@ -20,24 +20,79 @@ const mapDispatchToProps = dispatch => {
 };
 
 class CheckboxItem extends Component {
+
   constructor(props) {
     super(props);
+
+    this.state = {
+      itemId: this.props.item.id,
+      items: this.props.testElements.testItems[this.props.item.id]
+    };
+
     this.addCheckboxItem = this.addCheckboxItem.bind(this);
+    this.changeCheckboxItemText = this.changeCheckboxItemText.bind(this);
+    this.changeCheckboxItemCorrect = this.changeCheckboxItemCorrect.bind(this);
+  }
+
+  changeCheckboxItemText(event) {
+
+    const idx = this.state.itemId;
+    const items = this.state.items;
+
+    items.answers.answerItems[event.currentTarget.name].text = event.currentTarget.value;
+
+    this.props.changeQuestion(
+      {
+        [idx]: Object.assign({}, items, {
+            answers: Object.assign({}, items.answers, {
+              answerItems: items.answers.answerItems,
+              answerQuantityItems: items.answers.answerQuantityItems++
+            })
+          }
+        )
+      }
+    );
+  }
+
+  changeCheckboxItemCorrect(event) {
+
+    const idx = this.state.itemId;
+    const items = this.state.items;
+
+    items.answers.answerItems[event.currentTarget.name].correct = event.currentTarget.checked;
+
+    this.props.changeQuestion(
+      {
+        [idx]: Object.assign({}, items, {
+            answers: Object.assign({}, items.answers, {
+              answerItems: items.answers.answerItems,
+              answerQuantityItems: items.answers.answerQuantityItems++
+            })
+          }
+        )
+      }
+    );
   }
 
   addCheckboxItem() {
 
-    const idx = this.props.item.id;
-    const items = this.props.testElements.testItems[idx];
+    const idx = this.state.itemId;
+    const items = this.state.items;
 
-    items.answers.answerItems[items.answers.answerQuantityItems] = {text: ''};
+    items.answers.answerItems[items.answers.answerQuantityItems] = {
+      text: '',
+      correct: false,
+      id: items.answers.answerQuantityItems
+    };
 
     this.props.changeQuestion(
       {
-        [idx]: Object.assign({}, items, Object.assign({}, items.answers, {
-            answerItems: items.answers.answerItems,
-            answerQuantityItems: items.answers.answerQuantityItems++
-          })
+        [idx]: Object.assign({}, items, {
+            answers: Object.assign({}, items.answers, {
+              answerItems: items.answers.answerItems,
+              answerQuantityItems: items.answers.answerQuantityItems++
+            })
+          }
         )
       }
     );
@@ -46,27 +101,43 @@ class CheckboxItem extends Component {
   render() {
     return (
       <div className="form-group">
-        <button className="btn btn-default btn-block" onClick={this.addCheckboxItem}>Add</button>
-        <form>
+        <div>
+          <button className="btn btn-default btn-block" onClick={this.addCheckboxItem}>Add</button>
+        </div>
+        <hr/>
+        <div>
           {
-            this.props.testElements.testItems[this.props.item.id].answers.answerItems.map((item, i) => {
+            this.props.testElements.testItems[this.props.item.id].answers.answerItems.map((answer) => {
               return (
-                <div key={i} className="form-inline">
+                <div key={answer.id} className="form-inline">
                   <input
                     style={{width: '10%'}}
                     type="checkbox"
+                    name={answer.id}
                     className="form-control"
+                    onChange={this.changeCheckboxItemCorrect}
                   />
                   <input
-                    style={{width: '90%'}}
+                    style={{width: '80%'}}
                     type="text"
+                    className="form-control"
+                    name={answer.id}
+                    placeholder="Input answer"
+                    onChange={this.changeCheckboxItemText}
+                    value={this.props.testElements.testItems[this.props.item.id].answers.answerItems[answer.id].text}
+                  />
+                  <input
+                    style={{width: '10%'}}
+                    type="text"
+                    disabled={true}
+                    value={answer.id}
                     className="form-control"
                   />
                 </div>
               );
             })
           }
-        </form>
+        </div>
       </div>
     );
   }

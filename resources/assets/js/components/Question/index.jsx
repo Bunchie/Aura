@@ -87,6 +87,7 @@ class Question extends Component {
             answers: {
               answerType: constants.typeAnswer.RADIO,
               answerItems: [],
+              correctAnswer: null,
               answerQuantityItems: 0
             }
           }
@@ -129,17 +130,16 @@ class Question extends Component {
 
     return (
       <section style={{margin: "25px", padding: "15px", boxShadow: "0px 0px 20px 0px rgba(87,83,87,1)"}}>
-
         <div className="form-inline">
           <button className="form-control" onClick={this.deleteQuestion}>Delete</button>
           <button className="form-control" onClick={this.addText}>Add Text</button>
           <button className="form-control" onClick={this.addRadio}>Add Radio</button>
           <button className="form-control" onClick={this.addCheckbox}>Add Checkbox</button>
         </div>
-
+        <hr/>
         <div>
           <div className="form-group">
-            <label htmlFor=""></label>
+            <label htmlFor="">Question</label>
             <input
               type="text"
               className="form-control"

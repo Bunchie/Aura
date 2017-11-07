@@ -1,7 +1,7 @@
 "use strict";
 
-import React, {Component} from "react";
 import {connect} from "react-redux";
+import React, {Component} from "react";
 
 import constants from "../../constants";
 import Question from "../../components/Question";
@@ -56,6 +56,7 @@ class CreateTest extends Component {
           <div style={{position: "fixed", width: "385px"}}>
             <div className="form-group">
               <h3>Create test</h3>
+              <hr/>
               <label htmlFor="">Name test</label>
               <input
                 type="text"

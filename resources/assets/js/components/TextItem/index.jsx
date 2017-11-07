@@ -19,11 +19,11 @@ class TextItem extends Component {
   render() {
     return (
       <div className="form-group">
-        <label htmlFor=""></label>
+        <label htmlFor="">Correct answer</label>
         <input
           type="text"
           className="form-control"
-          placeholder="Input your question"
+          placeholder="Input correct answer"
         />
       </div>
     );
