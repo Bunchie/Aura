@@ -115,6 +115,7 @@ class RadioItem extends Component {
                     placeholder="Input answer"
                     onChange={this.changeRadioItemText}
                     className="form-control"
+                    value={this.props.testElements.testItems[this.props.item.id].answers.answerItems[answer.id].text}
                   />
                   <input
                     style={{width: '10%'}}

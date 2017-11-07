@@ -68,7 +68,7 @@ class Question extends Component {
           {}, this.props.testElements.testItems[idx], {
             answers: {
               answerType: constants.typeAnswer.TEXT,
-              answerItem: {correctAnswer: ""},
+              correctAnswer: "",
             }
           }
         )
@@ -97,6 +97,7 @@ class Question extends Component {
   }
 
   addCheckbox() {
+
     const idx = this.state.itemId;
 
     this.props.changeQuestion(
@@ -121,7 +122,7 @@ class Question extends Component {
     const answerType = this.props.testElements.testItems[idx].answers.answerType;
 
     if (answerType === constants.typeAnswer.TEXT) {
-      content = <TextItem/>
+      content = <TextItem item={this.props.item}/>
     } else if (answerType === constants.typeAnswer.RADIO) {
       content = <RadioItem item={this.props.item}/>
     } else if (answerType === constants.typeAnswer.CHECKBOX) {
