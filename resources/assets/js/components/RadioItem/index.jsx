@@ -44,8 +44,7 @@ class RadioItem extends Component {
       {
         [idx]: Object.assign({}, items, {
             answers: Object.assign({}, items.answers, {
-              answerItems: items.answers.answerItems,
-              answerQuantityItems: items.answers.answerQuantityItems++
+              answerItems: items.answers.answerItems
             })
           }
         )

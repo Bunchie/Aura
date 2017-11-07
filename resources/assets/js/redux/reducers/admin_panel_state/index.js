@@ -43,6 +43,18 @@ export default function adminPanelState(state = initialState, action) {
       });
     }
 
+    case constants.httpRequest.CREATE_TEST_REQUEST: {
+      return state
+    }
+
+    case constants.httpRequest.CREATE_TEST_SUCCESS: {
+      return initialState;
+    }
+
+    case constants.httpRequest.CREATE_TEST_FAILURE: {
+      return state
+    }
+
     default:
       return state
   }
