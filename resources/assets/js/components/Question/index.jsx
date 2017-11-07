@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 
 import constants from "../../constants";
 
+import CheckboxItem from "../CheckboxItem";
 import RadioItem from "../RadioItem";
 import TextItem from "../TextItem";
 
@@ -95,7 +96,21 @@ class Question extends Component {
   }
 
   addCheckbox() {
+    const idx = this.state.itemId;
 
+    this.props.changeQuestion(
+      {
+        [idx]: Object.assign(
+          {}, this.props.testElements.testItems[idx], {
+            answers: {
+              answerType: constants.typeAnswer.CHECKBOX,
+              answerItems: [],
+              answerQuantityItems: 0
+            }
+          }
+        )
+      }
+    );
   }
 
   render() {
@@ -108,6 +123,8 @@ class Question extends Component {
       content = <TextItem/>
     } else if (answerType === constants.typeAnswer.RADIO) {
       content = <RadioItem item={this.props.item}/>
+    } else if (answerType === constants.typeAnswer.CHECKBOX) {
+      content = <CheckboxItem item={this.props.item}/>
     }
 
     return (
@@ -117,7 +134,7 @@ class Question extends Component {
           <button className="form-control" onClick={this.deleteQuestion}>Delete</button>
           <button className="form-control" onClick={this.addText}>Add Text</button>
           <button className="form-control" onClick={this.addRadio}>Add Radio</button>
-          <button className="form-control">Add Checkbox</button>
+          <button className="form-control" onClick={this.addCheckbox}>Add Checkbox</button>
         </div>
 
         <div>
