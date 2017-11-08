@@ -33,6 +33,7 @@ const mapDispatchToProps = dispatch => {
 
 const settings = {
   speed: 1500,
+  arrows: false,
   slidesToShow: 1,
   slidesToScroll: 1
 };
@@ -40,10 +41,15 @@ const settings = {
 class Text extends Component {
   constructor(props) {
     super(props);
+    this.onClickScrollNextSlider = this.onClickScrollNextSlider.bind(this);
   }
 
   componentDidMount() {
     this.props.getTest(this.props.match.params.id);
+  }
+
+  onClickScrollNextSlider() {
+    this.refs.slider.slickNext();
   }
 
   render() {
@@ -54,9 +60,11 @@ class Text extends Component {
       answers = Object.values(JSON.parse(this.props.testState.currentTest.items)).map((item) => {
         return (
           <div key={item.id}>
-            <h3>{item.question}</h3>
-            <hr/>
-            <Answers answers={item.answers}/>
+            <div className="center-block" style={{width: "800px"}}>
+              <h3>{item.question}</h3>
+              <hr/>
+              <Answers answers={item.answers} questionId={item.id}/>
+            </div>
           </div>
         );
       });
@@ -65,9 +73,14 @@ class Text extends Component {
     return (
       <section className="col-xs-12" style={{backgroundColor: "white", minHeight: "600px"}}>
         <h1>{this.props.testState.currentTest.name}</h1>
-        <Slider {...settings}>
+        <hr/>
+        <Slider ref='slider' {...settings}>
           {answers}
         </Slider>
+        <hr/>
+        <div className="center-block" style={{width: "200px"}}>
+          <button className="btn btn-success btn-block" onClick={this.onClickScrollNextSlider}>Next</button>
+        </div>
       </section>
     );
   }

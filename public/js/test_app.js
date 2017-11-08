@@ -30016,6 +30016,8 @@ var AllTests = function (_Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Answers__ = __webpack_require__(211);
 
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30053,6 +30055,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 var settings = {
   speed: 1500,
+  arrows: false,
   slidesToShow: 1,
   slidesToScroll: 1
 };
@@ -30063,13 +30066,21 @@ var Text = function (_Component) {
   function Text(props) {
     _classCallCheck(this, Text);
 
-    return _possibleConstructorReturn(this, (Text.__proto__ || Object.getPrototypeOf(Text)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Text.__proto__ || Object.getPrototypeOf(Text)).call(this, props));
+
+    _this.onClickScrollNextSlider = _this.onClickScrollNextSlider.bind(_this);
+    return _this;
   }
 
   _createClass(Text, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.getTest(this.props.match.params.id);
+    }
+  }, {
+    key: "onClickScrollNextSlider",
+    value: function onClickScrollNextSlider() {
+      this.refs.slider.slickNext();
     }
   }, {
     key: "render",
@@ -30087,12 +30098,16 @@ var Text = function (_Component) {
             "div",
             { key: item.id },
             __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
-              "h3",
-              null,
-              item.question
-            ),
-            __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("hr", null),
-            __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__Answers__["a" /* default */], { answers: item.answers })
+              "div",
+              { className: "center-block", style: { width: "800px" } },
+              __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
+                "h3",
+                null,
+                item.question
+              ),
+              __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("hr", null),
+              __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__Answers__["a" /* default */], { answers: item.answers, questionId: item.id })
+            )
           );
         });
       }
@@ -30105,10 +30120,21 @@ var Text = function (_Component) {
           null,
           this.props.testState.currentTest.name
         ),
+        __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("hr", null),
         __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
           __WEBPACK_IMPORTED_MODULE_0_react_slick___default.a,
-          settings,
+          _extends({ ref: "slider" }, settings),
           answers
+        ),
+        __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("hr", null),
+        __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
+          "div",
+          { className: "center-block", style: { width: "200px" } },
+          __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
+            "button",
+            { className: "btn btn-success btn-block", onClick: this.onClickScrollNextSlider },
+            "Next"
+          )
         )
       );
     }
@@ -33425,6 +33451,7 @@ module.exports = QueryHandler;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constants__ = __webpack_require__(5);
 
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -33434,6 +33461,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -33449,13 +33477,45 @@ var Answers = function (_Component) {
   _createClass(Answers, [{
     key: "render",
     value: function render() {
-      console.log(this.props.answers);
-      if (!this.props.answers) {
-        return null;
+
+      if (this.props.answers.answerType === __WEBPACK_IMPORTED_MODULE_1__constants__["a" /* default */].typeAnswer.TEXT) {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          null,
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { className: "form-group" },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "label",
+              { htmlFor: "" },
+              "Correct answer"
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+              type: "text",
+              className: "form-control",
+              placeholder: "Input correct answer"
+            })
+          )
+        );
       }
 
-      if (this.props.answers.answerType == "TEXT") {
-        return null;
+      var inputItem = null;
+
+      if (this.props.answers.answerType === __WEBPACK_IMPORTED_MODULE_1__constants__["a" /* default */].typeAnswer.RADIO) {
+
+        inputItem = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+          style: { width: '10%' },
+          type: "radio",
+          name: "radio-" + this.props.questionId,
+          className: "form-control"
+        });
+      } else if (this.props.answers.answerType === __WEBPACK_IMPORTED_MODULE_1__constants__["a" /* default */].typeAnswer.CHECKBOX) {
+
+        inputItem = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+          style: { width: '10%' },
+          type: "checkbox",
+          className: "form-control"
+        });
       }
 
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -33464,8 +33524,13 @@ var Answers = function (_Component) {
         this.props.answers.answerItems.map(function (answer) {
           return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             "div",
-            { key: answer.id },
-            answer.text
+            { key: answer.id, className: "form-inline" },
+            inputItem,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "span",
+              null,
+              answer.text
+            )
           );
         })
       );
