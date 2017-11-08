@@ -12,6 +12,7 @@ import {BrowserRouter as Router} from 'react-router-dom';
  * */
 import AdminPanel from "./containers/admin_panel";
 const admin_panel = document.getElementById('admin_panel');
+
 ReactDOM.render(
   <Provider store={store}>
     <Router>

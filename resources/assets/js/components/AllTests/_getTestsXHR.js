@@ -2,12 +2,12 @@
 
 import http from '../../helpers/AxiosRequest';
 
-function _createTestXHR(data) {
+function _getTestsXHR(data) {
   return new Promise((resolve, reject) => {
-    http('POST', "/api/create-test", data)
+    http("GET", "/api/tests", data)
       .then(response => resolve(response))
       .catch(error => reject(error));
   });
 }
 
-export default _createTestXHR;
+export default _getTestsXHR;

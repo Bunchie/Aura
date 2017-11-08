@@ -3,20 +3,28 @@
 import constants from '../../../constants';
 
 const initialState = {
-  currentTest: {}
+  tests: []
 };
 
 export default function testPanelState(state = initialState, action) {
 
   switch (action.type) {
 
-    case "TEST": {
+    case constants.httpRequest.GET_TESTS_REQUEST: {
+      return state;
+    }
+
+    case constants.httpRequest.GET_TESTS_SUCCESS: {
       return Object.assign({}, state, {
-        currentTest: action.payload
+        tests: action.payload.data
       });
     }
 
+    case constants.httpRequest.GET_TESTS_FAILURE: {
+      return state;
+    }
+
     default:
-      return state
+      return state;
   }
 }
