@@ -15,18 +15,7 @@ class TestController extends Controller
      */
     public function index()
     {
-        $tests = Test::all();
-        return response()->json($tests, 200);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json(Test::all(), 200);
     }
 
     /**
@@ -45,7 +34,7 @@ class TestController extends Controller
 
         $test->save();
 
-        return response(200);
+        return response(201);
     }
 
     /**
@@ -56,7 +45,7 @@ class TestController extends Controller
      */
     public function show($id)
     {
-        //
+        return response()->json(Test::find($id), 200);
     }
 
     /**

@@ -14,4 +14,5 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/tests', 'TestController@index');
+Route::get('/test/{id}', 'TestController@show');
 Route::post('/create-test', 'TestController@store');

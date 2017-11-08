@@ -2,12 +2,12 @@
 
 import http from '../../helpers/AxiosRequest';
 
-function _getTestsXHR() {
+function _getTestXHR(id) {
   return new Promise((resolve, reject) => {
-    http("GET", "/api/tests")
+    http("GET", `/api/test/${id}`)
       .then(response => resolve(response))
       .catch(error => reject(error));
   });
 }
 
-export default _getTestsXHR;
+export default _getTestXHR;

@@ -3,7 +3,8 @@
 import constants from '../../../constants';
 
 const initialState = {
-  tests: []
+  tests: [],
+  currentTest: {}
 };
 
 export default function testPanelState(state = initialState, action) {
@@ -21,6 +22,21 @@ export default function testPanelState(state = initialState, action) {
     }
 
     case constants.httpRequest.GET_TESTS_FAILURE: {
+      return state;
+    }
+
+
+    case constants.httpRequest.GET_TEST_REQUEST: {
+      return state;
+    }
+
+    case constants.httpRequest.GET_TEST_SUCCESS: {
+      return Object.assign({}, state, {
+        currentTest: action.payload.data
+      });
+    }
+
+    case constants.httpRequest.GET_TEST_FAILURE: {
       return state;
     }
 
