@@ -31,25 +31,38 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const settings = {
-  speed: 1500,
-  arrows: false,
-  slidesToShow: 1,
-  slidesToScroll: 1
-};
 
 class Text extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      currentSlide: 0,
+      finishTest: false
+    };
     this.onClickScrollNextSlider = this.onClickScrollNextSlider.bind(this);
+    this.nextSlide = this.nextSlide.bind(this);
   }
 
   componentDidMount() {
     this.props.getTest(this.props.match.params.id);
   }
 
+  nextSlide(slide) {
+    this.setState({currentSlide: slide});
+  }
+
   onClickScrollNextSlider() {
-    this.refs.slider.slickNext();
+
+    let lastSlide = this.refs.slider.props.children.length - 1;
+
+    if (lastSlide != this.state.currentSlide) {
+      this.refs.slider.slickNext();
+    } else if (lastSlide == this.state.currentSlide && !this.state.finishTest) {
+      this.setState({finishTest: true});
+    } else if (this.state.finishTest) {
+      this.props.history.push('/result');
+    }
+
   }
 
   render() {
@@ -69,8 +82,15 @@ class Text extends Component {
         );
       });
     }
-
+    const settings = {
+      speed: 1500,
+      arrows: false,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      afterChange: this.nextSlide,
+    };
     return (
+
       <section className="col-xs-12" style={{backgroundColor: "white", minHeight: "600px"}}>
         <h1>{this.props.testState.currentTest.name}</h1>
         <hr/>
@@ -79,7 +99,8 @@ class Text extends Component {
         </Slider>
         <hr/>
         <div className="center-block" style={{width: "200px"}}>
-          <button className="btn btn-success btn-block" onClick={this.onClickScrollNextSlider}>Next</button>
+          <button className={this.state.finishTest ? "btn btn-primary btn-block" : "btn btn-success btn-block"}
+                  onClick={this.onClickScrollNextSlider}>{this.state.finishTest ? "Finish" : "Next >>"}</button>
         </div>
       </section>
     );

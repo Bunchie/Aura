@@ -4,6 +4,7 @@ import React from 'react';
 
 import NotFound from '../components/NotFound';
 import AllTests from '../components/AllTests';
+import Result from '../components/Result';
 import Test from '../components/Test';
 
 export default [
@@ -16,6 +17,11 @@ export default [
     path: '/test/:id',
     exact: true,
     component: Test
+  },
+  {
+    path: '/result',
+    exact: true,
+    component: Result
   },
   {
     path: '*',

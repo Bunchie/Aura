@@ -4,7 +4,8 @@ import constants from '../../../constants';
 
 const initialState = {
   tests: [],
-  currentTest: {}
+  currentTest: {},
+  currentAnswers: {}
 };
 
 export default function testPanelState(state = initialState, action) {
@@ -25,7 +26,6 @@ export default function testPanelState(state = initialState, action) {
       return state;
     }
 
-
     case constants.httpRequest.GET_TEST_REQUEST: {
       return state;
     }
@@ -38,6 +38,12 @@ export default function testPanelState(state = initialState, action) {
 
     case constants.httpRequest.GET_TEST_FAILURE: {
       return state;
+    }
+
+    case constants.testPanelState.CHOICE_OF_ANSWER: {
+      return Object.assign({}, state, {
+        currentAnswers: Object.assign({}, state.currentAnswers, action.payload)
+      });
     }
 
     default:

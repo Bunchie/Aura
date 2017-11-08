@@ -81,6 +81,7 @@ class CheckboxItem extends Component {
     items.answers.answerItems[items.answers.answerQuantityItems] = {
       text: '',
       correct: false,
+      checked: false,
       id: items.answers.answerQuantityItems
     };
 
