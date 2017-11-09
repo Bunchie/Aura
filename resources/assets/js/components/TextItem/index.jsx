@@ -1,8 +1,8 @@
 "use strict";
 
 import React, {Component} from "react";
-import {connect} from "react-redux";
 
+import {connect} from "react-redux";
 import constants from "../../constants";
 
 const mapStateToProps = state => {
@@ -22,13 +22,13 @@ const mapDispatchToProps = dispatch => {
 class TextItem extends Component {
   constructor(props) {
     super(props);
-    
+
     this.changeText = this.changeText.bind(this);
   }
 
   changeText(event) {
     const idx = this.props.item.id;
-    const items = this.props.testElements.testItems[this.props.item.id];
+    const items = this.props.testElements.testItems[idx];
 
     this.props.changeQuestion(
       {

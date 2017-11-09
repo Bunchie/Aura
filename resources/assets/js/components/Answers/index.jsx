@@ -115,7 +115,6 @@ class Answers extends Component {
 
     }
 
-
   }
 }
 

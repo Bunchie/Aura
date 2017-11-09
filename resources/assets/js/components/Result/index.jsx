@@ -7,6 +7,13 @@ import {Redirect} from "react-router-dom";
 import constants from "../../constants";
 import _saveResultXHR from "./_saveResultXHR";
 
+function getCookie(name) {
+  var matches = document.cookie.match(new RegExp(
+    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+  ))
+  return matches ? decodeURIComponent(matches[1]) : undefined
+}
+
 const mapStateToProps = state => {
   return {
     testState: state.testPanelState
@@ -45,6 +52,7 @@ class Result extends Component {
 
     data.append('test', testId);
     data.append('result', result);
+    data.append('user_id', getCookie("UI"));
 
     this.props.saveResult(data);
   }

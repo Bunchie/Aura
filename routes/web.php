@@ -1,5 +1,8 @@
 <?php
 
+use Auth;
+use Queue;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,5 +26,8 @@ Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
 });
 
 Route::get('{any}', function () {
+
+    Cookie::queue('UI', Auth::id(), 1500, null, null, false, false);
+
     return view('test_panel.index');
 })->where('any', '.*');

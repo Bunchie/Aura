@@ -31,7 +31,7 @@ class RadioItem extends Component {
 
   changeRadioItemText(event) {
     const idx = this.props.item.id;
-    const items = this.props.testElements.testItems[this.props.item.id];
+    const items = this.props.testElements.testItems[idx];
 
     items.answers.answerItems[event.currentTarget.name].text = event.currentTarget.value;
 
@@ -50,7 +50,7 @@ class RadioItem extends Component {
   changeRadioItemCorrect(event) {
 
     const idx = this.props.item.id;
-    const items = this.props.testElements.testItems[this.props.item.id];
+    const items = this.props.testElements.testItems[idx];
 
     this.props.changeQuestion(
       {
@@ -67,7 +67,7 @@ class RadioItem extends Component {
   addRadioItem() {
 
     const idx = this.props.item.id;
-    const items = this.props.testElements.testItems[this.props.item.id];
+    const items = this.props.testElements.testItems[idx];
 
     items.answers.answerItems[items.answers.answerQuantityItems] = {text: '', id: items.answers.answerQuantityItems};
 

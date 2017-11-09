@@ -75,11 +75,11 @@ class CreateTest extends Component {
 
   render() {
     return (
-      <section className="col-xs-12"
-               style={{backgroundColor: "white", boxShadow: "0px 0px 20px 0px rgba(87,83,87,1)", minHeight: 300}}
+      <section
+        className="col-xs-12"
+        style={{backgroundColor: "white", boxShadow: "0px 0px 20px 0px rgba(87,83,87,1)", minHeight: 300}}
       >
         <div className="col-xs-4">
-
           <div style={{position: "fixed", width: "385px"}}>
             <div className="form-group">
               <h3>Create test</h3>
@@ -101,7 +101,6 @@ class CreateTest extends Component {
             </div>
             <hr/>
           </div>
-
         </div>
 
         <div className="col-xs-8">

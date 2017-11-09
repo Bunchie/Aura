@@ -1,6 +1,7 @@
 "use strict";
 
 import React, {Component} from "react";
+
 import {Switch} from 'react-router-dom';
 
 import router from "../../router/admin";

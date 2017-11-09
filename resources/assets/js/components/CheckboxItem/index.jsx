@@ -32,7 +32,7 @@ class CheckboxItem extends Component {
   changeCheckboxItemText(event) {
 
     const idx = this.props.item.id;
-    const items = this.props.testElements.testItems[this.props.item.id];
+    const items = this.props.testElements.testItems[idx];
 
     items.answers.answerItems[event.currentTarget.name].text = event.currentTarget.value;
 
@@ -52,7 +52,7 @@ class CheckboxItem extends Component {
   changeCheckboxItemCorrect(event) {
 
     const idx = this.props.item.id;
-    const items = this.props.testElements.testItems[this.props.item.id];
+    const items = this.props.testElements.testItems[idx];
 
     items.answers.answerItems[event.currentTarget.name].correct = event.currentTarget.checked;
 
@@ -71,7 +71,7 @@ class CheckboxItem extends Component {
   addCheckboxItem() {
 
     const idx = this.props.item.id;
-    const items = this.props.testElements.testItems[this.props.item.id];
+    const items = this.props.testElements.testItems[idx];
 
     items.answers.answerItems[items.answers.answerQuantityItems] = {
       text: '',

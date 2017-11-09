@@ -1,8 +1,9 @@
 "use strict";
 
+import React, {Component} from "react";
+
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
-import React, {Component} from "react";
 
 import constants from "../../constants";
 import _getTestsXHR from "./_getTestsXHR";

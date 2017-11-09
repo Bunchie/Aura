@@ -3,8 +3,8 @@
 import React from 'react';
 
 import AdminNav from '../components/AdminNav';
-import CreateTest from '../components/CreateTest';
 import NotFound from '../components/NotFound';
+import CreateTest from '../components/CreateTest';
 
 export default [
   {

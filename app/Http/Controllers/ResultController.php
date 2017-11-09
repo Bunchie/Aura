@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Result;
+
+use App\Result;
+use Crypt;
+use Auth;
 
 
 class ResultController extends Controller
@@ -27,10 +30,12 @@ class ResultController extends Controller
     public function store(Request $request)
     {
 
+        $user_id = Crypt::decrypt($request->input('user_id'));
+
         $test = new Result([
             'test' => $request->input('test'),
             'result' => $request->input('result'),
-            'user' => '1',
+            'user' => intval($user_id),
         ]);
 
         $test->save();
