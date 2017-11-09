@@ -22,7 +22,7 @@ const mapDispatchToProps = dispatch => {
     changeNameOfTheTest: (name) => {
       dispatch({type: constants.adminPanelState.CHANGE_NAME_OF_THE_TEST, payload: name});
     },
-    createTest: (data, quantityEvents) => {
+    createTest: (data) => {
       dispatch({
         type: constants.httpRequest.PROMISE,
         actions: [
@@ -30,7 +30,7 @@ const mapDispatchToProps = dispatch => {
           constants.httpRequest.CREATE_TEST_SUCCESS,
           constants.httpRequest.CREATE_TEST_FAILURE
         ],
-        promise: _createTestXHR(data, quantityEvents)
+        promise: _createTestXHR(data)
       });
     }
   };

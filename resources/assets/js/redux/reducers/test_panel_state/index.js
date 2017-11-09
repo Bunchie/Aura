@@ -46,6 +46,18 @@ export default function testPanelState(state = initialState, action) {
       });
     }
 
+    case constants.httpRequest.SAVE_RESULT_REQUEST: {
+      return state;
+    }
+
+    case constants.httpRequest.SAVE_RESULT_SUCCESS: {
+      return state;
+    }
+
+    case constants.httpRequest.SAVE_RESULT_FAILURE: {
+      return state;
+    }
+
     default:
       return state;
   }

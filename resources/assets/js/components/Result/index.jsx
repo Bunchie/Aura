@@ -4,6 +4,9 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 
+import constants from "../../constants";
+import _saveResultXHR from "./_saveResultXHR";
+
 const mapStateToProps = state => {
   return {
     testState: state.testPanelState
@@ -11,13 +14,39 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    saveResult: (data) => {
+      dispatch({
+        type: constants.httpRequest.PROMISE,
+        actions: [
+          constants.httpRequest.SAVE_RESULT_REQUEST,
+          constants.httpRequest.SAVE_RESULT_SUCCESS,
+          constants.httpRequest.SAVE_RESULT_FAILURE
+        ],
+        promise: _saveResultXHR(data)
+      });
+    }
+  };
 };
 
 class Result extends Component {
 
   constructor(props) {
     super(props);
+
+    this.saveResult = this.saveResult.bind(this);
+  }
+
+  saveResult() {
+    let score = Object.values(this.props.testState.currentAnswers).reduce((a, b) => Number(a) + Number(b.result), "");
+    let result = (score * 100) / (Object.values(JSON.parse(this.props.testState.currentTest.items)).length * 100);
+
+    const data = new FormData(), testId = this.props.testState.currentTest.id;
+
+    data.append('test', testId);
+    data.append('result', result);
+
+    this.props.saveResult(data);
   }
 
   render() {
@@ -36,9 +65,10 @@ class Result extends Component {
         <div>
           Result: {result}
         </div>
-        <div>
-          <button>Save</button>
-          <button>Back to Tests</button>
+
+        <div className="btn-group ">
+          <button type="button" className="btn btn-warning" onClick={this.saveResult}>Save</button>
+          <button type="button" className="btn btn-success">Back to Tests</button>
         </div>
       </section>
     );

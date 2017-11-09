@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,3 +14,4 @@ use Illuminate\Http\Request;
 Route::get('/tests', 'TestController@index');
 Route::get('/test/{id}', 'TestController@show');
 Route::post('/create-test', 'TestController@store');
+Route::post('/save-result', 'ResultController@store');
