@@ -24,19 +24,14 @@ class RadioItem extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      itemId: this.props.item.id,
-      items: this.props.testElements.testItems[this.props.item.id]
-    };
-
     this.addRadioItem = this.addRadioItem.bind(this);
     this.changeRadioItemText = this.changeRadioItemText.bind(this);
     this.changeRadioItemCorrect = this.changeRadioItemCorrect.bind(this);
   }
 
   changeRadioItemText(event) {
-    const idx = this.state.itemId;
-    const items = this.state.items;
+    const idx = this.props.item.id;
+    const items = this.props.testElements.testItems[this.props.item.id];
 
     items.answers.answerItems[event.currentTarget.name].text = event.currentTarget.value;
 
@@ -54,8 +49,8 @@ class RadioItem extends Component {
 
   changeRadioItemCorrect(event) {
 
-    const idx = this.state.itemId;
-    const items = this.state.items;
+    const idx = this.props.item.id;
+    const items = this.props.testElements.testItems[this.props.item.id];
 
     this.props.changeQuestion(
       {
@@ -71,8 +66,8 @@ class RadioItem extends Component {
 
   addRadioItem() {
 
-    const idx = this.state.itemId;
-    const items = this.state.items;
+    const idx = this.props.item.id;
+    const items = this.props.testElements.testItems[this.props.item.id];
 
     items.answers.answerItems[items.answers.answerQuantityItems] = {text: '', id: items.answers.answerQuantityItems};
 
@@ -81,7 +76,7 @@ class RadioItem extends Component {
         [idx]: Object.assign({}, items, {
             answers: Object.assign({}, items.answers, {
               answerItems: items.answers.answerItems,
-              answerQuantityItems: items.answers.answerQuantityItems++
+              answerQuantityItems: ++items.answers.answerQuantityItems
             })
           }
         )

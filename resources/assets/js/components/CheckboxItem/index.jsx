@@ -24,11 +24,6 @@ class CheckboxItem extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      itemId: this.props.item.id,
-      items: this.props.testElements.testItems[this.props.item.id]
-    };
-
     this.addCheckboxItem = this.addCheckboxItem.bind(this);
     this.changeCheckboxItemText = this.changeCheckboxItemText.bind(this);
     this.changeCheckboxItemCorrect = this.changeCheckboxItemCorrect.bind(this);
@@ -36,8 +31,8 @@ class CheckboxItem extends Component {
 
   changeCheckboxItemText(event) {
 
-    const idx = this.state.itemId;
-    const items = this.state.items;
+    const idx = this.props.item.id;
+    const items = this.props.testElements.testItems[this.props.item.id];
 
     items.answers.answerItems[event.currentTarget.name].text = event.currentTarget.value;
 
@@ -46,7 +41,7 @@ class CheckboxItem extends Component {
         [idx]: Object.assign({}, items, {
             answers: Object.assign({}, items.answers, {
               answerItems: items.answers.answerItems,
-              answerQuantityItems: items.answers.answerQuantityItems++
+              answerQuantityItems: ++items.answers.answerQuantityItems
             })
           }
         )
@@ -56,8 +51,8 @@ class CheckboxItem extends Component {
 
   changeCheckboxItemCorrect(event) {
 
-    const idx = this.state.itemId;
-    const items = this.state.items;
+    const idx = this.props.item.id;
+    const items = this.props.testElements.testItems[this.props.item.id];
 
     items.answers.answerItems[event.currentTarget.name].correct = event.currentTarget.checked;
 
@@ -75,8 +70,8 @@ class CheckboxItem extends Component {
 
   addCheckboxItem() {
 
-    const idx = this.state.itemId;
-    const items = this.state.items;
+    const idx = this.props.item.id;
+    const items = this.props.testElements.testItems[this.props.item.id];
 
     items.answers.answerItems[items.answers.answerQuantityItems] = {
       text: '',
@@ -90,7 +85,7 @@ class CheckboxItem extends Component {
         [idx]: Object.assign({}, items, {
             answers: Object.assign({}, items.answers, {
               answerItems: items.answers.answerItems,
-              answerQuantityItems: items.answers.answerQuantityItems++
+              answerQuantityItems: ++items.answers.answerQuantityItems
             })
           }
         )

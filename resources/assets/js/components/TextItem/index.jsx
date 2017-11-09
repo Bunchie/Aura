@@ -22,18 +22,13 @@ const mapDispatchToProps = dispatch => {
 class TextItem extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      itemId: this.props.item.id,
-      items: this.props.testElements.testItems[this.props.item.id]
-    };
-
+    
     this.changeText = this.changeText.bind(this);
   }
 
   changeText(event) {
-    const idx = this.state.itemId;
-    const items = this.state.items;
+    const idx = this.props.item.id;
+    const items = this.props.testElements.testItems[this.props.item.id];
 
     this.props.changeQuestion(
       {
