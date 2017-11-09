@@ -42,6 +42,11 @@ class Result extends Component {
     super(props);
 
     this.saveResult = this.saveResult.bind(this);
+    this.changeRoute = this.changeRoute.bind(this);
+  }
+
+  changeRoute() {
+    this.props.history.push('/');
   }
 
   saveResult() {
@@ -55,6 +60,7 @@ class Result extends Component {
     data.append('user_id', getCookie("UI"));
 
     this.props.saveResult(data);
+    this.changeRoute();
   }
 
   render() {
@@ -67,16 +73,16 @@ class Result extends Component {
     let result = (score * 100) / (Object.values(JSON.parse(this.props.testState.currentTest.items)).length * 100);
 
     return (
-      <section>
+      <section className="col-xs-12 test-shadow" style={{backgroundColor: "white", minHeight: "600px"}}>
         <h2>{this.props.testState.currentTest.name}</h2>
         <hr/>
-        <div>
-          Result: {result}
+        <div style={{textAlign: "center"}}>
+          <span style={{fontSize: "72px", color: "green"}}>Result: {result.toFixed()} % correct</span>
         </div>
-
+        <hr/>
         <div className="btn-group ">
           <button type="button" className="btn btn-warning" onClick={this.saveResult}>Save</button>
-          <button type="button" className="btn btn-success">Back to Tests</button>
+          <button type="button" className="btn btn-success" onClick={this.changeRoute}>Back to Tests</button>
         </div>
       </section>
     );

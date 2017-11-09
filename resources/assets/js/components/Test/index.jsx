@@ -82,8 +82,8 @@ class Text extends Component {
     if (this.props.testState.currentTest.items) {
       answers = Object.values(JSON.parse(this.props.testState.currentTest.items)).map((item) => {
         return (
-          <div key={item.id}>
-            <div className="center-block" style={{width: "800px"}}>
+          <div key={item.id} style={{padding: "50px"}}>
+            <div className="center-block test-shadow" style={{width: "800px", padding: "20px"}}>
               <h3>{item.question}</h3>
               <hr/>
               <Answers answers={item.answers} questionId={item.id}/>
@@ -94,7 +94,8 @@ class Text extends Component {
     }
 
     return (
-      <section className="col-xs-12" style={{backgroundColor: "white", minHeight: "600px"}}>
+      <section className="col-xs-12 test-shadow"
+               style={{backgroundColor: "white", minHeight: "600px", padding: "20px"}}>
         <h1>{this.props.testState.currentTest.name}</h1>
         <hr/>
         <Slider ref='slider' {...settings}>

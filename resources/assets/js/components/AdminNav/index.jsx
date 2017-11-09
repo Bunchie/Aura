@@ -10,7 +10,10 @@ class AdminNav extends PureComponent {
 
   render() {
     return (
-      <section>
+      <section
+        className="col-xs-12 test-shadow"
+        style={{backgroundColor: "white", minHeight: "600px", padding: "20px"}}
+      >
         <h3>Admin panel</h3>
         <div className="form-inline">
           <ul >

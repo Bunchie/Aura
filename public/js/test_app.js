@@ -30710,14 +30710,22 @@ var AllTests = function (_Component) {
     value: function render() {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         "section",
-        { className: "col-xs-12", style: { backgroundColor: "white" } },
+        {
+          className: "col-xs-12 test-shadow",
+          style: { backgroundColor: "white", minHeight: "600px", padding: "20px" }
+        },
         this.props.testState.tests.map(function (item) {
           return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             "div",
-            { key: item.id },
+            { key: item.id, style: { fontSize: "30px" } },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               __WEBPACK_IMPORTED_MODULE_2_react_router_dom__["b" /* Link */],
               { to: "/test/" + item.id },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "span",
+                { style: { color: "red" } },
+                "Test => "
+              ),
               item.name
             )
           );
@@ -30813,10 +30821,16 @@ var Result = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Result.__proto__ || Object.getPrototypeOf(Result)).call(this, props));
 
     _this.saveResult = _this.saveResult.bind(_this);
+    _this.changeRoute = _this.changeRoute.bind(_this);
     return _this;
   }
 
   _createClass(Result, [{
+    key: "changeRoute",
+    value: function changeRoute() {
+      this.props.history.push('/');
+    }
+  }, {
     key: "saveResult",
     value: function saveResult() {
       var score = Object.values(this.props.testState.currentAnswers).reduce(function (a, b) {
@@ -30832,6 +30846,7 @@ var Result = function (_Component) {
       data.append('user_id', getCookie("UI"));
 
       this.props.saveResult(data);
+      this.changeRoute();
     }
   }, {
     key: "render",
@@ -30848,7 +30863,7 @@ var Result = function (_Component) {
 
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         "section",
-        null,
+        { className: "col-xs-12 test-shadow", style: { backgroundColor: "white", minHeight: "600px" } },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "h2",
           null,
@@ -30857,10 +30872,16 @@ var Result = function (_Component) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("hr", null),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "div",
-          null,
-          "Result: ",
-          result
+          { style: { textAlign: "center" } },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "span",
+            { style: { fontSize: "72px", color: "green" } },
+            "Result: ",
+            result.toFixed(),
+            " % correct"
+          )
         ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("hr", null),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "div",
           { className: "btn-group " },
@@ -30871,7 +30892,7 @@ var Result = function (_Component) {
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             "button",
-            { type: "button", className: "btn btn-success" },
+            { type: "button", className: "btn btn-success", onClick: this.changeRoute },
             "Back to Tests"
           )
         )
@@ -31022,10 +31043,10 @@ var Text = function (_Component) {
         answers = Object.values(JSON.parse(this.props.testState.currentTest.items)).map(function (item) {
           return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             "div",
-            { key: item.id },
+            { key: item.id, style: { padding: "50px" } },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               "div",
-              { className: "center-block", style: { width: "800px" } },
+              { className: "center-block test-shadow", style: { width: "800px", padding: "20px" } },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 "h3",
                 null,
@@ -31040,7 +31061,8 @@ var Text = function (_Component) {
 
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         "section",
-        { className: "col-xs-12", style: { backgroundColor: "white", minHeight: "600px" } },
+        { className: "col-xs-12 test-shadow",
+          style: { backgroundColor: "white", minHeight: "600px", padding: "20px" } },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "h1",
           null,

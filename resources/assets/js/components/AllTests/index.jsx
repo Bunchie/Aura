@@ -41,12 +41,17 @@ class AllTests extends Component {
 
   render() {
     return (
-      <section className="col-xs-12" style={{backgroundColor: "white"}}>
+      <section
+        className="col-xs-12 test-shadow"
+        style={{backgroundColor: "white", minHeight: "600px", padding: "20px"}}
+      >
         {
           this.props.testState.tests.map((item) => {
-            return (<div key={item.id}>
-              <Link to={`/test/${item.id}`}>{item.name}</Link>
-            </div>);
+            return (
+              <div key={item.id} style={{fontSize: "30px"}}>
+                <Link to={`/test/${item.id}`}><span style={{color: "red"}}>Test => </span>{item.name}</Link>
+              </div>
+            );
           })
         }
       </section>

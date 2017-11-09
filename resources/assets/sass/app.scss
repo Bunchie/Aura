@@ -11,3 +11,9 @@
 // Slick
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
+
+//SMACSS
+@import "./smacss/theme/main";
+
+@import "./smacss/base/html";
+@import "./smacss/base/body";

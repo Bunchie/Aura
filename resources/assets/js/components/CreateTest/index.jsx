@@ -43,11 +43,11 @@ class CreateTest extends Component {
 
     this.createTest = this.createTest.bind(this);
     this.addQuestion = this.addQuestion.bind(this);
+    this.changeRoute = this.changeRoute.bind(this);
     this.changeNameOfTheTest = this.changeNameOfTheTest.bind(this);
   }
 
   createTest() {
-
     const data = new FormData(), name = this.props.testElements.testName,
       items = JSON.stringify(this.props.testElements.testItems);
 
@@ -55,6 +55,10 @@ class CreateTest extends Component {
     data.append('items', items);
 
     this.props.createTest(data);
+  }
+
+  changeRoute() {
+    location.href = "/";
   }
 
   changeNameOfTheTest(event) {
@@ -77,7 +81,7 @@ class CreateTest extends Component {
     return (
       <section
         className="col-xs-12"
-        style={{backgroundColor: "white", boxShadow: "0px 0px 20px 0px rgba(87,83,87,1)", minHeight: 300}}
+        style={{backgroundColor: "white", boxShadow: "0px 0px 20px 0px rgba(87,83,87,1)", minHeight: 400}}
       >
         <div className="col-xs-4">
           <div style={{position: "fixed", width: "385px"}}>
@@ -94,10 +98,13 @@ class CreateTest extends Component {
               />
             </div>
             <div className="form-group">
-              <button className="form-control" onClick={this.addQuestion}>Add questions</button>
+              <button className="form-control btn-success" onClick={this.addQuestion}>Add questions</button>
             </div>
             <div className="form-group">
-              <button className="form-control" onClick={this.createTest}>Create test</button>
+              <button className="form-control btn-warning" onClick={this.createTest}>Create test</button>
+            </div>
+            <div className="form-group">
+              <button className="form-control btn-primary" onClick={this.changeRoute}>Go to tests</button>
             </div>
             <hr/>
           </div>
