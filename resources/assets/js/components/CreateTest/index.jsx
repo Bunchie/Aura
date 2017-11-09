@@ -6,6 +6,8 @@ import React, {Component} from "react";
 import constants from "../../constants";
 import Question from "../../components/Question";
 
+import Select2 from 'react-select2-wrapper';
+
 import _createTestXHR from "./_createTestXHR";
 
 const mapStateToProps = state => {
@@ -95,6 +97,18 @@ class CreateTest extends Component {
                 placeholder="Input name test"
                 onChange={this.changeNameOfTheTest}
                 value={this.props.testElements.testName}
+              />
+              <h3>Create test</h3>
+              <hr/>
+              <label htmlFor="">Category test</label>
+              <Select2
+                multiple
+                data={['bug', 'feature', 'documents', 'discussion']}
+                options={
+                  {
+                    placeholder: 'search by tags',
+                  }
+                }
               />
             </div>
             <div className="form-group">
