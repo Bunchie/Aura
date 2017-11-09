@@ -81,12 +81,10 @@ class CreateTest extends Component {
 
   render() {
     return (
-      <section
-        className="col-xs-12"
-        style={{backgroundColor: "white", boxShadow: "0px 0px 20px 0px rgba(87,83,87,1)", minHeight: 400}}
-      >
+      <section className="col-xs-12">
         <div className="col-xs-4">
-          <div style={{position: "fixed", width: "385px"}}>
+          <div style={{position: "fixed", width: "350px", padding: "10px", margin: "0px 15px 0px 0px"}}
+               className="test-shadow">
             <div className="form-group">
               <h3>Create test</h3>
               <hr/>
@@ -98,10 +96,12 @@ class CreateTest extends Component {
                 onChange={this.changeNameOfTheTest}
                 value={this.props.testElements.testName}
               />
-              <h3>Create test</h3>
               <hr/>
-              <label htmlFor="">Category test</label>
+              <h3>Category test</h3>
+              <label htmlFor="">Category</label>
               <Select2
+                className="form-control"
+                style={{width: "100%"}}
                 multiple
                 data={['bug', 'feature', 'documents', 'discussion']}
                 options={
@@ -110,28 +110,32 @@ class CreateTest extends Component {
                   }
                 }
               />
+              <hr/>
             </div>
             <div className="form-group">
-              <button className="form-control btn-success" onClick={this.addQuestion}>Add questions</button>
+              <button className="form-control btn btn-default" onClick={this.addQuestion}>Add questions</button>
             </div>
             <div className="form-group">
-              <button className="form-control btn-warning" onClick={this.createTest}>Create test</button>
+              <button className="form-control btn btn-default" onClick={this.createTest}>Create test</button>
             </div>
             <div className="form-group">
-              <button className="form-control btn-primary" onClick={this.changeRoute}>Go to tests</button>
+              <button className="form-control btn btn-default" onClick={this.changeRoute}>Go to tests</button>
             </div>
             <hr/>
           </div>
         </div>
 
-        <div className="col-xs-8">
-          {Object.values(this.props.testElements.testItems).map((item) => {
-            return (
-              <div key={item.id}>
-                <Question item={item}/>
-              </div>
-            );
-          })}
+        <div className="col-xs-8 test-shadow">
+          <div style={{minHeight: 400}}>
+            {Object.values(this.props.testElements.testItems).map((item) => {
+              return (
+                <div style={{margin: "25px", padding: "15px", boxShadow: "0px 0px 20px 0px rgba(87,83,87,1)"}}
+                     key={item.id}>
+                  <Question item={item}/>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
     );
