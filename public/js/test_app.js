@@ -25489,6 +25489,7 @@ function testPanelState() {
 
     case __WEBPACK_IMPORTED_MODULE_0__constants__["a" /* default */].httpRequest.GET_TEST_SUCCESS:
       {
+        console.log(action.payload.data);
         return Object.assign({}, state, {
           currentTest: action.payload.data
         });

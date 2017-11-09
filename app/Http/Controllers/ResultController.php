@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 
 use App\Result;
 use Crypt;
-use Auth;
-
 
 class ResultController extends Controller
 {
