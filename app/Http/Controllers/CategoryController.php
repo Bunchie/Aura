@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Test;
+use App\Category;
 
-
-class TestController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,7 @@ class TestController extends Controller
      */
     public function index()
     {
-        return response()->json(Test::all(), 200);
+        return response()->json(Category::all(), 200);
     }
 
     /**
@@ -26,11 +25,8 @@ class TestController extends Controller
      */
     public function store(Request $request)
     {
-
-        $test = new Test([
+        $test = new Category([
             'name' => $request->input('name'),
-            'categories' => $request->input('categories'),
-            'items' => $request->input('items'),
         ]);
 
         $test->save();
@@ -38,14 +34,4 @@ class TestController extends Controller
         return response(201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        return response()->json(Test::find($id), 200);
-    }
 }

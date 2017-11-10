@@ -106,10 +106,7 @@ class Text extends Component {
     }
 
     return (
-      <section
-        className="col-xs-12 test-shadow"
-        style={{backgroundColor: "white", minHeight: "600px", padding: "20px"}}
-      >
+      <section className="col-xs-12 test-shadow test-section">
         <h1>{this.props.testState.currentTest.name}</h1>
         <hr/>
         <Slider ref='slider' {...settings}>

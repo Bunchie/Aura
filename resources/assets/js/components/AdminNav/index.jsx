@@ -22,6 +22,9 @@ class AdminNav extends PureComponent {
               <Link to="/admin/create-test">Create test</Link>
             </li>
             <li >
+              <Link to="/admin/create-category">Create category</Link>
+            </li>
+            <li >
               <Link to="/admin/show-tests">Show tests</Link>
             </li>
           </ul>

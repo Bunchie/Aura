@@ -12,6 +12,11 @@
 */
 
 Route::get('/tests', 'TestController@index');
+Route::get('/categories', 'CategoryController@index');
+
 Route::get('/test/{id}', 'TestController@show');
+
 Route::post('/create-test', 'TestController@store');
+Route::post('/create-category', 'CategoryController@store');
+
 Route::post('/save-result', 'ResultController@store');
