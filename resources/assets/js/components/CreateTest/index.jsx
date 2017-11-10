@@ -9,6 +9,7 @@ import Question from "../../components/Question";
 import Select2 from 'react-select2-wrapper';
 
 import _createTestXHR from "./_createTestXHR";
+import getCategoriesXHR from "../../helpers/GetCategoriesXHR";
 
 const mapStateToProps = state => {
   return {
@@ -34,6 +35,17 @@ const mapDispatchToProps = dispatch => {
         ],
         promise: _createTestXHR(data)
       });
+    },
+    getCategories: () => {
+      dispatch({
+        type: constants.httpRequest.PROMISE,
+        actions: [
+          constants.httpRequest.GET_CATEGORIES_REQUEST,
+          constants.httpRequest.GET_CATEGORIES_SUCCESS,
+          constants.httpRequest.GET_CATEGORIES_FAILURE
+        ],
+        promise: getCategoriesXHR()
+      });
     }
   };
 };
@@ -49,6 +61,10 @@ class CreateTest extends Component {
     this.changeNameOfTheTest = this.changeNameOfTheTest.bind(this);
   }
 
+  componentDidMount() {
+    this.props.getCategories();
+  }
+
   createTest() {
     const data = new FormData(), name = this.props.testElements.testName,
       items = JSON.stringify(this.props.testElements.testItems);
@@ -58,7 +74,7 @@ class CreateTest extends Component {
     });
 
     data.append('name', name);
-    data.append('categories', JSON.stringify(categories));
+    data.append('categories', categories.join(","));
     data.append('items', items);
 
     this.props.createTest(data);
@@ -73,12 +89,10 @@ class CreateTest extends Component {
   }
 
   addQuestion() {
-
     const question = {
       id: this.props.testElements.testQuantityItems,
       question: '',
       answers: {}
-
     }, idxItem = this.props.testElements.testQuantityItems;
 
     this.props.changeItemOfTheTest({[idxItem]: question});
@@ -109,19 +123,8 @@ class CreateTest extends Component {
                 className="form-control"
                 style={{width: "100%"}}
                 multiple
-                data={
-                  [
-                    {text: 'test1', id: 1},
-                    {text: 'test2', id: 2},
-                    {text: 'test3', id: 3},
-                    {text: 'test4', id: 4}
-                  ]
-                }
-                options={
-                  {
-                    placeholder: 'Search category',
-                  }
-                }
+                data={this.props.testElements.testCategories}
+                options={{placeholder: 'Search category'}}
               />
               <hr/>
             </div>

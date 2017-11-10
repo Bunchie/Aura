@@ -26,7 +26,6 @@ class TestController extends Controller
      */
     public function store(Request $request)
     {
-
         $test = new Test([
             'name' => $request->input('name'),
             'categories' => $request->input('categories'),

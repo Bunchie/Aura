@@ -53,7 +53,11 @@ export default function adminPanelState(state = initialState, action) {
     }
 
     case constants.httpRequest.CREATE_TEST_SUCCESS: {
-      return initialState;
+      return Object.assign({}, state, {
+        testName: "",
+        testItems: {},
+        testQuantityItems: 0
+      });
     }
 
     case constants.httpRequest.CREATE_TEST_FAILURE: {
@@ -83,9 +87,12 @@ export default function adminPanelState(state = initialState, action) {
     }
 
     case constants.httpRequest.GET_CATEGORIES_SUCCESS: {
-      return Object.assign({}, state, {
-        testCategories: action.payload.data
+
+      let categories = action.payload.data.map((category) => {
+        return {text: category.name, id: category.id};
       });
+
+      return Object.assign({}, state, {testCategories: categories});
     }
 
     case constants.httpRequest.GET_CATEGORIES_SUCCESS: {

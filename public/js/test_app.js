@@ -33684,7 +33684,11 @@ function adminPanelState() {
 
     case __WEBPACK_IMPORTED_MODULE_0__constants__["a" /* default */].httpRequest.CREATE_TEST_SUCCESS:
       {
-        return initialState;
+        return Object.assign({}, state, {
+          testName: "",
+          testItems: {},
+          testQuantityItems: 0
+        });
       }
 
     case __WEBPACK_IMPORTED_MODULE_0__constants__["a" /* default */].httpRequest.CREATE_TEST_FAILURE:
@@ -33720,9 +33724,12 @@ function adminPanelState() {
 
     case __WEBPACK_IMPORTED_MODULE_0__constants__["a" /* default */].httpRequest.GET_CATEGORIES_SUCCESS:
       {
-        return Object.assign({}, state, {
-          testCategories: action.payload.data
+
+        var categories = action.payload.data.map(function (category) {
+          return { text: category.name, id: category.id };
         });
+
+        return Object.assign({}, state, { testCategories: categories });
       }
 
     case __WEBPACK_IMPORTED_MODULE_0__constants__["a" /* default */].httpRequest.GET_CATEGORIES_SUCCESS:

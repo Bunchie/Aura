@@ -2,7 +2,7 @@
 
 import http from '../../helpers/AxiosRequest';
 
-function _getCategoriesXHR() {
+function getCategoriesXHR() {
   return new Promise((resolve, reject) => {
     http('GET', "/api/categories")
       .then(response => resolve(response))
@@ -10,4 +10,4 @@ function _getCategoriesXHR() {
   });
 }
 
-export default _getCategoriesXHR;
+export default getCategoriesXHR;

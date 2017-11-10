@@ -5,8 +5,8 @@ import {connect} from "react-redux";
 
 import constants from "../../constants";
 
-import _getCategories from "./_getCategoriesXHR";
-import _createCategory from "./_createCategoryXHR";
+import getCategoriesXHR from "../../helpers/GetCategoriesXHR";
+import _createCategoryXHR from "./_createCategoryXHR";
 
 const mapStateToProps = state => {
   return {
@@ -27,7 +27,7 @@ const mapDispatchToProps = dispatch => {
           constants.httpRequest.CREATE_CATEGORY_SUCCESS,
           constants.httpRequest.CREATE_CATEGORY_FAILURE
         ],
-        promise: _createCategory(data)
+        promise: _createCategoryXHR(data)
       });
     },
     getCategories: () => {
@@ -38,7 +38,7 @@ const mapDispatchToProps = dispatch => {
           constants.httpRequest.GET_CATEGORIES_SUCCESS,
           constants.httpRequest.GET_CATEGORIES_FAILURE
         ],
-        promise: _getCategories()
+        promise: getCategoriesXHR()
       });
     }
   };
@@ -64,9 +64,10 @@ class CreateCategory extends Component {
   }
 
   componentDidMount() {
+    this.props.getCategories();
     setInterval(() => {
       this.props.getCategories();
-    }, 1000);
+    }, 8000);
   }
 
   render() {
@@ -99,11 +100,21 @@ class CreateCategory extends Component {
           <hr/>
           {this.props.adminPanelState.testCategories.map((category) => {
             return (
-              <span key={category.id} style={{
-                fontSize: "28px", fontWeight: "bold"
-              }}>
-                {`${category.name}, `}
-              </span>
+              <div
+                key={category.id}
+                style={{
+                  fontSize: "28px",
+                  fontWeight: "bold",
+                  display: "inline-block",
+                  backgroundColor: "#24292e",
+                  margin: "10px",
+                  padding: "5px",
+                  color: "white",
+                  borderRadius: "20px"
+                }}
+              >
+                {`${category.text}`}
+              </div>
             );
           })}
           <hr/>

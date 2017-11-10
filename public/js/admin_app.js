@@ -33630,7 +33630,11 @@ function adminPanelState() {
 
     case __WEBPACK_IMPORTED_MODULE_0__constants__["a" /* default */].httpRequest.CREATE_TEST_SUCCESS:
       {
-        return initialState;
+        return Object.assign({}, state, {
+          testName: "",
+          testItems: {},
+          testQuantityItems: 0
+        });
       }
 
     case __WEBPACK_IMPORTED_MODULE_0__constants__["a" /* default */].httpRequest.CREATE_TEST_FAILURE:
@@ -33666,9 +33670,12 @@ function adminPanelState() {
 
     case __WEBPACK_IMPORTED_MODULE_0__constants__["a" /* default */].httpRequest.GET_CATEGORIES_SUCCESS:
       {
-        return Object.assign({}, state, {
-          testCategories: action.payload.data
+
+        var categories = action.payload.data.map(function (category) {
+          return { text: category.name, id: category.id };
         });
+
+        return Object.assign({}, state, { testCategories: categories });
       }
 
     case __WEBPACK_IMPORTED_MODULE_0__constants__["a" /* default */].httpRequest.GET_CATEGORIES_SUCCESS:
@@ -44279,6 +44286,7 @@ var AdminNav = function (_PureComponent) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_select2_wrapper__ = __webpack_require__(157);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_select2_wrapper___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_react_select2_wrapper__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__createTestXHR__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__helpers_GetCategoriesXHR__ = __webpack_require__(227);
 
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -44290,6 +44298,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -44321,6 +44330,13 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         actions: [__WEBPACK_IMPORTED_MODULE_2__constants__["a" /* default */].httpRequest.CREATE_TEST_REQUEST, __WEBPACK_IMPORTED_MODULE_2__constants__["a" /* default */].httpRequest.CREATE_TEST_SUCCESS, __WEBPACK_IMPORTED_MODULE_2__constants__["a" /* default */].httpRequest.CREATE_TEST_FAILURE],
         promise: Object(__WEBPACK_IMPORTED_MODULE_5__createTestXHR__["a" /* default */])(data)
       });
+    },
+    getCategories: function getCategories() {
+      dispatch({
+        type: __WEBPACK_IMPORTED_MODULE_2__constants__["a" /* default */].httpRequest.PROMISE,
+        actions: [__WEBPACK_IMPORTED_MODULE_2__constants__["a" /* default */].httpRequest.GET_CATEGORIES_REQUEST, __WEBPACK_IMPORTED_MODULE_2__constants__["a" /* default */].httpRequest.GET_CATEGORIES_SUCCESS, __WEBPACK_IMPORTED_MODULE_2__constants__["a" /* default */].httpRequest.GET_CATEGORIES_FAILURE],
+        promise: Object(__WEBPACK_IMPORTED_MODULE_6__helpers_GetCategoriesXHR__["a" /* default */])()
+      });
     }
   };
 };
@@ -44341,6 +44357,11 @@ var CreateTest = function (_Component) {
   }
 
   _createClass(CreateTest, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.getCategories();
+    }
+  }, {
     key: "createTest",
     value: function createTest() {
       var data = new FormData(),
@@ -44352,7 +44373,7 @@ var CreateTest = function (_Component) {
       });
 
       data.append('name', name);
-      data.append('categories', JSON.stringify(categories));
+      data.append('categories', categories.join(","));
       data.append('items', items);
 
       this.props.createTest(data);
@@ -44370,12 +44391,10 @@ var CreateTest = function (_Component) {
   }, {
     key: "addQuestion",
     value: function addQuestion() {
-
       var question = {
         id: this.props.testElements.testQuantityItems,
         question: '',
         answers: {}
-
       },
           idxItem = this.props.testElements.testQuantityItems;
 
@@ -44431,10 +44450,8 @@ var CreateTest = function (_Component) {
                 className: "form-control",
                 style: { width: "100%" },
                 multiple: true,
-                data: [{ text: 'test1', id: 1 }, { text: 'test2', id: 2 }, { text: 'test3', id: 3 }, { text: 'test4', id: 4 }],
-                options: {
-                  placeholder: 'Search category'
-                }
+                data: this.props.testElements.testCategories,
+                options: { placeholder: 'Search category' }
               }),
               __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("hr", null)
             ),
@@ -45135,7 +45152,7 @@ function _createTestXHR(data) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__constants__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__getCategoriesXHR__ = __webpack_require__(224);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__helpers_GetCategoriesXHR__ = __webpack_require__(227);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__createCategoryXHR__ = __webpack_require__(225);
 
 
@@ -45177,7 +45194,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       dispatch({
         type: __WEBPACK_IMPORTED_MODULE_2__constants__["a" /* default */].httpRequest.PROMISE,
         actions: [__WEBPACK_IMPORTED_MODULE_2__constants__["a" /* default */].httpRequest.GET_CATEGORIES_REQUEST, __WEBPACK_IMPORTED_MODULE_2__constants__["a" /* default */].httpRequest.GET_CATEGORIES_SUCCESS, __WEBPACK_IMPORTED_MODULE_2__constants__["a" /* default */].httpRequest.GET_CATEGORIES_FAILURE],
-        promise: Object(__WEBPACK_IMPORTED_MODULE_3__getCategoriesXHR__["a" /* default */])()
+        promise: Object(__WEBPACK_IMPORTED_MODULE_3__helpers_GetCategoriesXHR__["a" /* default */])()
       });
     }
   };
@@ -45214,9 +45231,10 @@ var CreateCategory = function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      this.props.getCategories();
       setInterval(function () {
         _this2.props.getCategories();
-      }, 1000);
+      }, 8000);
     }
   }, {
     key: "render",
@@ -45271,11 +45289,21 @@ var CreateCategory = function (_Component) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("hr", null),
           this.props.adminPanelState.testCategories.map(function (category) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "span",
-              { key: category.id, style: {
-                  fontSize: "28px", fontWeight: "bold"
-                } },
-              category.name + ", "
+              "div",
+              {
+                key: category.id,
+                style: {
+                  fontSize: "28px",
+                  fontWeight: "bold",
+                  display: "inline-block",
+                  backgroundColor: "#24292e",
+                  margin: "10px",
+                  padding: "5px",
+                  color: "white",
+                  borderRadius: "20px"
+                }
+              },
+              "" + category.text
             );
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("hr", null)
@@ -45307,28 +45335,7 @@ var CreateCategory = function (_Component) {
 /* 221 */,
 /* 222 */,
 /* 223 */,
-/* 224 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__ = __webpack_require__(49);
-
-
-
-
-function _getCategoriesXHR() {
-  return new Promise(function (resolve, reject) {
-    Object(__WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__["a" /* default */])('GET', "/api/categories").then(function (response) {
-      return resolve(response);
-    }).catch(function (error) {
-      return reject(error);
-    });
-  });
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (_getCategoriesXHR);
-
-/***/ }),
+/* 224 */,
 /* 225 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -45349,6 +45356,29 @@ function _createCategoryXHR(data) {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (_createCategoryXHR);
+
+/***/ }),
+/* 226 */,
+/* 227 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__ = __webpack_require__(49);
+
+
+
+
+function getCategoriesXHR() {
+  return new Promise(function (resolve, reject) {
+    Object(__WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__["a" /* default */])('GET', "/api/categories").then(function (response) {
+      return resolve(response);
+    }).catch(function (error) {
+      return reject(error);
+    });
+  });
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (getCategoriesXHR);
 
 /***/ })
 /******/ ]);
