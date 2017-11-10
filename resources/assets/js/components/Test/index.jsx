@@ -72,6 +72,9 @@ class Text extends Component {
     const settings = {
       speed: 1500,
       arrows: false,
+      touchMove: false,
+      swipeToSlide: false,
+      swipe: false,
       slidesToShow: 1,
       slidesToScroll: 1,
       afterChange: this.nextSlide,
@@ -93,15 +96,27 @@ class Text extends Component {
       });
     }
 
+    let finishText = "";
+    if (this.state.finishTest) {
+      finishText = (
+        <h1 style={{color: "red", textAlign: "center"}}>
+          You answered all questions !
+        </h1>
+      );
+    }
+
     return (
-      <section className="col-xs-12 test-shadow"
-               style={{backgroundColor: "white", minHeight: "600px", padding: "20px"}}>
+      <section
+        className="col-xs-12 test-shadow"
+        style={{backgroundColor: "white", minHeight: "600px", padding: "20px"}}
+      >
         <h1>{this.props.testState.currentTest.name}</h1>
         <hr/>
         <Slider ref='slider' {...settings}>
           {answers}
         </Slider>
         <hr/>
+        {finishText}
         <div className="center-block" style={{width: "200px"}}>
           <button
             className={this.state.finishTest ? "btn btn-primary btn-block" : "btn btn-success btn-block"}

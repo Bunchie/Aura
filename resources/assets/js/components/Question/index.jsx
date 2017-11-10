@@ -130,7 +130,7 @@ class Question extends Component {
     }
 
     return (
-      <section style={{margin: "25px", padding: "15px", boxShadow: "0px 0px 20px 0px rgba(87,83,87,1)"}}>
+      <section>
         <div className="form-inline">
           <button className="form-control" onClick={this.deleteQuestion}>Delete</button>
           <button className="form-control" onClick={this.addText}>Add Text</button>
@@ -140,7 +140,7 @@ class Question extends Component {
         <hr/>
         <div>
           <div className="form-group">
-            <label htmlFor="">Question</label>
+            <label>Question</label>
             <input
               type="text"
               className="form-control"

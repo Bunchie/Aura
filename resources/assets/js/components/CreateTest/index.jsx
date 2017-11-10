@@ -53,7 +53,12 @@ class CreateTest extends Component {
     const data = new FormData(), name = this.props.testElements.testName,
       items = JSON.stringify(this.props.testElements.testItems);
 
+    let categories = this.refs.tags.el.select2('data').map((items) => {
+      return items.id;
+    });
+
     data.append('name', name);
+    data.append('categories', JSON.stringify(categories));
     data.append('items', items);
 
     this.props.createTest(data);
@@ -100,13 +105,21 @@ class CreateTest extends Component {
               <h3>Category test</h3>
               <label htmlFor="">Category</label>
               <Select2
+                ref="tags"
                 className="form-control"
                 style={{width: "100%"}}
                 multiple
-                data={['bug', 'feature', 'documents', 'discussion']}
+                data={
+                  [
+                    {text: 'test1', id: 1},
+                    {text: 'test2', id: 2},
+                    {text: 'test3', id: 3},
+                    {text: 'test4', id: 4}
+                  ]
+                }
                 options={
                   {
-                    placeholder: 'search by tags',
+                    placeholder: 'Search category',
                   }
                 }
               />

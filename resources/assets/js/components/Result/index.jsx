@@ -5,14 +5,9 @@ import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 
 import constants from "../../constants";
-import _saveResultXHR from "./_saveResultXHR";
 
-function getCookie(name) {
-  var matches = document.cookie.match(new RegExp(
-    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-  ))
-  return matches ? decodeURIComponent(matches[1]) : undefined
-}
+import _saveResultXHR from "./_saveResultXHR";
+import getCookie from "../../helpers/GetCookie";
 
 const mapStateToProps = state => {
   return {

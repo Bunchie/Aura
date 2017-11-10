@@ -9,15 +9,6 @@ use Crypt;
 
 class ResultController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -40,6 +31,5 @@ class ResultController extends Controller
 
         return response(201);
     }
-
 
 }

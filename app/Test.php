@@ -6,10 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Test extends Model
 {
-    protected $fillable = ['name', 'category', 'items'];
-
-    public function alltest()
-    {
-        dd($this->all('items'));
-    }
+    protected $fillable = ['name', 'categories', 'items'];
 }

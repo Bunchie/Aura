@@ -15,6 +15,7 @@ class AdminNav extends PureComponent {
         style={{backgroundColor: "white", minHeight: "600px", padding: "20px"}}
       >
         <h3>Admin panel</h3>
+        <hr/>
         <div className="form-inline">
           <ul >
             <li >

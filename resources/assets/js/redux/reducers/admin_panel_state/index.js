@@ -5,7 +5,7 @@ import constants from '../../../constants';
 const initialState = {
   testName: "",
   testItems: {},
-  testCategory: [],
+  testCategories: [],
   testQuantityItems: 0
 };
 
