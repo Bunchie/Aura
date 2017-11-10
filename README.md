@@ -10,6 +10,18 @@
 # Problems that may arise
    1. app may want to -> php70w-mysqlnd
 
+# Users
+
+   ADMIN
+    
+   > email -> valera228@gmail.com 
+   > pass -> 777
+    
+   CUSTOMER
+   
+   > email -> sveta@gmail.com 
+   > pass -> 111
+
 # Use case
    1. [Main page use case](http://joxi.ru/Vm6zYW9Tx5nqam)
    2. [Test page use case](http://joxi.ru/MAjJ5XbHvgyGEA)
