@@ -2,11 +2,11 @@
 
 import {connect} from "react-redux";
 import React, {Component} from "react";
+import Select2 from 'react-select2-wrapper';
 
 import constants from "../../constants";
 import Question from "../../components/Question";
-
-import Select2 from 'react-select2-wrapper';
+import Messenger from "../../components/Messenger";
 
 import _createTestXHR from "./_createTestXHR";
 import getCategoriesXHR from "../../helpers/GetCategoriesXHR";
@@ -67,7 +67,7 @@ class CreateTest extends Component {
 
   createTest() {
     const data = new FormData(), name = this.props.testElements.testName,
-      items = JSON.stringify(this.props.testElements.testItems);
+      items = this.props.testElements.testItems;
 
     let categories = this.refs.tags.el.select2('data').map((items) => {
       return items.id;
@@ -75,7 +75,9 @@ class CreateTest extends Component {
 
     data.append('name', name);
     data.append('categories', categories.join(","));
-    data.append('items', items);
+
+    if (Object.values(items).length != 0)
+      data.append('items', JSON.stringify(items));
 
     this.props.createTest(data);
   }
@@ -99,6 +101,13 @@ class CreateTest extends Component {
   }
 
   render() {
+
+    let messanger = null;
+
+    if (this.props.testElements.testMessages.length != 0) {
+      messanger = <Messenger messages={this.props.testElements.testMessages}/>;
+    }
+
     return (
       <section className="col-xs-12">
         <div className="col-xs-4">
@@ -120,14 +129,15 @@ class CreateTest extends Component {
               <label htmlFor="">Category</label>
               <Select2
                 ref="tags"
+                multiple
                 className="form-control"
                 style={{width: "100%"}}
-                multiple
                 data={this.props.testElements.testCategories}
                 options={{placeholder: 'Search category'}}
               />
               <hr/>
             </div>
+            {messanger}
             <div className="form-group">
               <button className="form-control btn btn-default" onClick={this.addQuestion}>Add questions</button>
             </div>
@@ -143,6 +153,8 @@ class CreateTest extends Component {
 
         <div className="col-xs-8 test-shadow">
           <div style={{minHeight: 400}}>
+            <h2>Test name: {this.props.testElements.testName}</h2>
+            <hr/>
             {Object.values(this.props.testElements.testItems).map((item) => {
               return (
                 <div style={{margin: "25px", padding: "15px", boxShadow: "0px 0px 20px 0px rgba(87,83,87,1)"}}

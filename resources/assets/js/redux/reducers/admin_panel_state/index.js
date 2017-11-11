@@ -5,6 +5,7 @@ import constants from '../../../constants';
 const initialState = {
   testName: "",
   testItems: {},
+  testMessages: [],
   testCategories: [],
   testCategoryName: "",
   testQuantityItems: 0
@@ -61,7 +62,9 @@ export default function adminPanelState(state = initialState, action) {
     }
 
     case constants.httpRequest.CREATE_TEST_FAILURE: {
-      return state
+      return Object.assign({}, state, {
+        testMessages: action.error.response.data.error
+      });
     }
 
     //-------------------------------------------------------------------------
@@ -77,7 +80,9 @@ export default function adminPanelState(state = initialState, action) {
     }
 
     case constants.httpRequest.CREATE_CATEGORY_FAILURE: {
-      return state
+      return Object.assign({}, state, {
+        testMessages: action.error.response.data.error
+      });
     }
 
     //-------------------------------------------------------------------------
@@ -95,8 +100,10 @@ export default function adminPanelState(state = initialState, action) {
       return Object.assign({}, state, {testCategories: categories});
     }
 
-    case constants.httpRequest.GET_CATEGORIES_SUCCESS: {
-      return state
+    case constants.httpRequest.GET_CATEGORIES_FAILURE: {
+      return Object.assign({}, state, {
+        testMessages: action.error.response.data.error
+      });
     }
 
     default:
