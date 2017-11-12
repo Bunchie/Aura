@@ -45192,11 +45192,12 @@ var AllTests = function (_Component) {
   _createClass(AllTests, [{
     key: "changeCategories",
     value: function changeCategories() {
+
       var categories = this.refs.tags.el.select2('data').map(function (items) {
         return items.id;
       });
 
-      this.props.getTests(categories.join(","));
+      if (Boolean(categories.join(","))) this.props.getTests(categories.join(","));
     }
   }, {
     key: "componentDidMount",

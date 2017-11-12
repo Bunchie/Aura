@@ -52,11 +52,13 @@ class AllTests extends Component {
   }
 
   changeCategories() {
+
     let categories = this.refs.tags.el.select2('data').map((items) => {
       return items.id;
     });
 
-    this.props.getTests(categories.join(","));
+    if (Boolean(categories.join(",")))
+      this.props.getTests(categories.join(","));
   }
 
   componentDidMount() {
