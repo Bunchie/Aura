@@ -23139,7 +23139,7 @@ function testPanelState() {
     case __WEBPACK_IMPORTED_MODULE_0__constants__["a" /* default */].httpRequest.GET_TESTS_SUCCESS:
       {
         return Object.assign({}, state, {
-          tests: action.payload.data
+          tests: Object.values(action.payload.data)
         });
       }
 
@@ -44811,7 +44811,28 @@ module.exports = {
 
 
 /***/ }),
-/* 193 */,
+/* 193 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__ = __webpack_require__(33);
+
+
+
+
+function getCategoriesXHR() {
+  return new Promise(function (resolve, reject) {
+    Object(__WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__["a" /* default */])('GET', "/api/categories").then(function (response) {
+      return resolve(response);
+    }).catch(function (error) {
+      return reject(error);
+    });
+  });
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (getCategoriesXHR);
+
+/***/ }),
 /* 194 */,
 /* 195 */,
 /* 196 */,
@@ -45106,8 +45127,9 @@ var TestPanel = function (_Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router_dom__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__constants__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__getTestsXHR__ = __webpack_require__(333);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_select2_wrapper__ = __webpack_require__(179);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_select2_wrapper___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react_select2_wrapper__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__helpers_GetCategoriesXHR__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_select2_wrapper__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_select2_wrapper___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react_select2_wrapper__);
 
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -45128,19 +45150,28 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    testState: state.testPanelState
+    testState: state.testPanelState,
+    testElements: state.adminPanelState
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    getTests: function getTests() {
+    getTests: function getTests(categories) {
       dispatch({
         type: __WEBPACK_IMPORTED_MODULE_3__constants__["a" /* default */].httpRequest.PROMISE,
         actions: [__WEBPACK_IMPORTED_MODULE_3__constants__["a" /* default */].httpRequest.GET_TESTS_REQUEST, __WEBPACK_IMPORTED_MODULE_3__constants__["a" /* default */].httpRequest.GET_TESTS_SUCCESS, __WEBPACK_IMPORTED_MODULE_3__constants__["a" /* default */].httpRequest.GET_TESTS_FAILURE],
-        promise: Object(__WEBPACK_IMPORTED_MODULE_4__getTestsXHR__["a" /* default */])()
+        promise: Object(__WEBPACK_IMPORTED_MODULE_4__getTestsXHR__["a" /* default */])(categories)
+      });
+    },
+    getCategories: function getCategories() {
+      dispatch({
+        type: __WEBPACK_IMPORTED_MODULE_3__constants__["a" /* default */].httpRequest.PROMISE,
+        actions: [__WEBPACK_IMPORTED_MODULE_3__constants__["a" /* default */].httpRequest.GET_CATEGORIES_REQUEST, __WEBPACK_IMPORTED_MODULE_3__constants__["a" /* default */].httpRequest.GET_CATEGORIES_SUCCESS, __WEBPACK_IMPORTED_MODULE_3__constants__["a" /* default */].httpRequest.GET_CATEGORIES_FAILURE],
+        promise: Object(__WEBPACK_IMPORTED_MODULE_5__helpers_GetCategoriesXHR__["a" /* default */])()
       });
     }
   };
@@ -45152,17 +45183,31 @@ var AllTests = function (_Component) {
   function AllTests(props) {
     _classCallCheck(this, AllTests);
 
-    return _possibleConstructorReturn(this, (AllTests.__proto__ || Object.getPrototypeOf(AllTests)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (AllTests.__proto__ || Object.getPrototypeOf(AllTests)).call(this, props));
+
+    _this.changeCategories = _this.changeCategories.bind(_this);
+    return _this;
   }
 
   _createClass(AllTests, [{
+    key: "changeCategories",
+    value: function changeCategories() {
+      var categories = this.refs.tags.el.select2('data').map(function (items) {
+        return items.id;
+      });
+
+      this.props.getTests(categories.join(","));
+    }
+  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
+      this.props.getCategories();
       this.props.getTests();
     }
   }, {
     key: "render",
     value: function render() {
+
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         "section",
         {
@@ -45174,15 +45219,26 @@ var AllTests = function (_Component) {
           null,
           "Category test"
         ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5_react_select2_wrapper___default.a, {
-          className: "form-control",
-          style: { width: "100%" },
-          multiple: true,
-          data: ['test1', 'test2', 'test3', 'test4'],
-          options: {
-            placeholder: 'search by tags'
-          }
-        }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          { className: "form-inline" },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6_react_select2_wrapper___default.a, {
+            ref: "tags",
+            className: "form-control",
+            style: { width: "80%" },
+            multiple: true,
+            data: this.props.testElements.testCategories,
+            options: { placeholder: 'Category selection' }
+          }),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "button",
+            {
+              style: { width: "19%", marginLeft: '1%', height: '37px', borderColor: '#aaa' },
+              className: "btn btn-default", onClick: this.changeCategories
+            },
+            "Search"
+          )
+        ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("hr", null),
         this.props.testState.tests.map(function (item) {
           return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -45190,11 +45246,13 @@ var AllTests = function (_Component) {
             { key: item.id, style: { fontSize: "30px" } },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               __WEBPACK_IMPORTED_MODULE_2_react_router_dom__["b" /* Link */],
-              { to: "/test/" + item.id },
+              { to: "/test/" + item.id, style: { color: "#aaa" } },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 "span",
-                { style: { color: "red" } },
-                "Test => "
+                null,
+                "Test #",
+                item.id,
+                " "
               ),
               item.name
             )
@@ -45220,8 +45278,10 @@ var AllTests = function (_Component) {
 
 
 function _getTestsXHR() {
+  var categories = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+
   return new Promise(function (resolve, reject) {
-    Object(__WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__["a" /* default */])("GET", "/api/tests").then(function (response) {
+    Object(__WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__["a" /* default */])("GET", "/api/tests/" + categories).then(function (response) {
       return resolve(response);
     }).catch(function (error) {
       return reject(error);

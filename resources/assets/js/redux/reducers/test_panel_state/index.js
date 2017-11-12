@@ -18,7 +18,7 @@ export default function testPanelState(state = initialState, action) {
 
     case constants.httpRequest.GET_TESTS_SUCCESS: {
       return Object.assign({}, state, {
-        tests: action.payload.data
+        tests: Object.values(action.payload.data)
       });
     }
 

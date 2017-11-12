@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/tests', 'TestController@index');
+Route::get('/tests/{categories}', 'TestController@index');
 Route::get('/test/{id}', 'TestController@show');
 Route::post('/create-test', 'TestController@store');
 

@@ -7,18 +7,20 @@ import {Link} from 'react-router-dom';
 
 import constants from "../../constants";
 import _getTestsXHR from "./_getTestsXHR";
+import getCategoriesXHR from "../../helpers/GetCategoriesXHR";
 
 import Select2 from 'react-select2-wrapper';
 
 const mapStateToProps = state => {
   return {
-    testState: state.testPanelState
+    testState: state.testPanelState,
+    testElements: state.adminPanelState
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getTests: () => {
+    getTests: (categories) => {
       dispatch({
         type: constants.httpRequest.PROMISE,
         actions: [
@@ -26,7 +28,18 @@ const mapDispatchToProps = dispatch => {
           constants.httpRequest.GET_TESTS_SUCCESS,
           constants.httpRequest.GET_TESTS_FAILURE
         ],
-        promise: _getTestsXHR()
+        promise: _getTestsXHR(categories)
+      });
+    },
+    getCategories: () => {
+      dispatch({
+        type: constants.httpRequest.PROMISE,
+        actions: [
+          constants.httpRequest.GET_CATEGORIES_REQUEST,
+          constants.httpRequest.GET_CATEGORIES_SUCCESS,
+          constants.httpRequest.GET_CATEGORIES_FAILURE
+        ],
+        promise: getCategoriesXHR()
       });
     }
   };
@@ -35,36 +48,54 @@ const mapDispatchToProps = dispatch => {
 class AllTests extends Component {
   constructor(props) {
     super(props);
+    this.changeCategories = this.changeCategories.bind(this);
+  }
+
+  changeCategories() {
+    let categories = this.refs.tags.el.select2('data').map((items) => {
+      return items.id;
+    });
+
+    this.props.getTests(categories.join(","));
   }
 
   componentDidMount() {
+    this.props.getCategories();
     this.props.getTests();
   }
 
   render() {
+
     return (
       <section
         className="col-xs-12 test-shadow"
         style={{backgroundColor: "white", minHeight: "600px", padding: "20px"}}
       >
         <h3>Category test</h3>
-        <Select2
-          className="form-control"
-          style={{width: "100%"}}
-          multiple
-          data={['test1', 'test2', 'test3', 'test4']}
-          options={
-            {
-              placeholder: 'search by tags',
+        <div className="form-inline">
+          <Select2
+            ref="tags"
+            className="form-control"
+            style={{width: "80%"}}
+            multiple
+            data={this.props.testElements.testCategories}
+            options={{placeholder: 'Category selection'}
             }
-          }
-        />
+          />
+          <button
+            style={{width: "19%", marginLeft: '1%', height: '37px', borderColor: '#aaa'}}
+            className="btn btn-default" onClick={this.changeCategories}
+          >
+            Search
+          </button>
+        </div>
+
         <hr/>
         {
           this.props.testState.tests.map((item) => {
             return (
               <div key={item.id} style={{fontSize: "30px"}}>
-                <Link to={`/test/${item.id}`}><span style={{color: "red"}}>Test => </span>{item.name}</Link>
+                <Link to={`/test/${item.id}`} style={{color: "#aaa"}}><span>Test #{item.id} </span>{item.name}</Link>
               </div>
             );
           })

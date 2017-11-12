@@ -23139,7 +23139,7 @@ function testPanelState() {
     case __WEBPACK_IMPORTED_MODULE_0__constants__["a" /* default */].httpRequest.GET_TESTS_SUCCESS:
       {
         return Object.assign({}, state, {
-          tests: action.payload.data
+          tests: Object.values(action.payload.data)
         });
       }
 
