@@ -41,7 +41,8 @@ class Result extends Component {
   }
 
   changeRoute() {
-    this.props.history.push('/');
+     //this.props.history.push('/');
+     window.location.href = "/";
   }
 
   saveResult() {
