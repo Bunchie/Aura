@@ -1948,56 +1948,6 @@ if (false) {
 
 /***/ }),
 /* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-
-
-var emptyObject = {};
-
-if (true) {
-  Object.freeze(emptyObject);
-}
-
-module.exports = emptyObject;
-
-/***/ }),
-/* 32 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2026,6 +1976,56 @@ function http(method, url) {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (http);
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+
+var emptyObject = {};
+
+if (true) {
+  Object.freeze(emptyObject);
+}
+
+module.exports = emptyObject;
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
 
 /***/ }),
 /* 34 */,
@@ -4121,7 +4121,7 @@ if (true) {
 
 var _assign = __webpack_require__(9);
 var invariant = __webpack_require__(14);
-var emptyObject = __webpack_require__(31);
+var emptyObject = __webpack_require__(32);
 var warning = __webpack_require__(15);
 var emptyFunction = __webpack_require__(10);
 var checkPropTypes = __webpack_require__(19);
@@ -5480,7 +5480,7 @@ var getActiveElement = __webpack_require__(68);
 var shallowEqual = __webpack_require__(69);
 var containsNode = __webpack_require__(70);
 var focusNode = __webpack_require__(73);
-var emptyObject = __webpack_require__(31);
+var emptyObject = __webpack_require__(32);
 var checkPropTypes = __webpack_require__(19);
 var hyphenateStyleName = __webpack_require__(74);
 var camelizeStyleName = __webpack_require__(76);
@@ -22313,7 +22313,7 @@ var freeGlobal = typeof global == 'object' && global && global.Object === Object
 
 /* harmony default export */ __webpack_exports__["a"] = (freeGlobal);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(32)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(33)))
 
 /***/ }),
 /* 87 */
@@ -22511,7 +22511,7 @@ if (typeof self !== 'undefined') {
 
 var result = (0, _ponyfill2['default'])(root);
 exports['default'] = result;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(32), __webpack_require__(41)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(33), __webpack_require__(41)(module)))
 
 /***/ }),
 /* 94 */
@@ -37902,7 +37902,28 @@ var HelperRoute = function HelperRoute(route) {
 /* 166 */,
 /* 167 */,
 /* 168 */,
-/* 169 */,
+/* 169 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__ = __webpack_require__(31);
+
+
+
+
+function getCategoriesXHR() {
+  return new Promise(function (resolve, reject) {
+    Object(__WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__["a" /* default */])('GET', "/api/categories").then(function (response) {
+      return resolve(response);
+    }).catch(function (error) {
+      return reject(error);
+    });
+  });
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (getCategoriesXHR);
+
+/***/ }),
 /* 170 */,
 /* 171 */,
 /* 172 */,
@@ -37912,7 +37933,8 @@ var HelperRoute = function HelperRoute(route) {
 /* 176 */,
 /* 177 */,
 /* 178 */,
-/* 179 */
+/* 179 */,
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37940,7 +37962,7 @@ var _reactDom = __webpack_require__(30);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _shallowEqualFuzzy = __webpack_require__(180);
+var _shallowEqualFuzzy = __webpack_require__(181);
 
 var _shallowEqualFuzzy2 = _interopRequireDefault(_shallowEqualFuzzy);
 
@@ -37948,7 +37970,7 @@ var _jquery = __webpack_require__(164);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-__webpack_require__(181);
+__webpack_require__(182);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38220,7 +38242,7 @@ exports.default = Select2;
 module.exports = exports['default'];
 
 /***/ }),
-/* 180 */
+/* 181 */
 /***/ (function(module, exports) {
 
 // inlined http://underscorejs.org/ realization isString, isNumber
@@ -38328,7 +38350,7 @@ module.exports = shallowEqualFuzzy;
 
 
 /***/ }),
-/* 181 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var require;var require;/*!
@@ -44083,7 +44105,6 @@ S2.define('jquery.select2',[
 
 
 /***/ }),
-/* 182 */,
 /* 183 */,
 /* 184 */,
 /* 185 */,
@@ -44094,28 +44115,7 @@ S2.define('jquery.select2',[
 /* 190 */,
 /* 191 */,
 /* 192 */,
-/* 193 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__ = __webpack_require__(33);
-
-
-
-
-function getCategoriesXHR() {
-  return new Promise(function (resolve, reject) {
-    Object(__WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__["a" /* default */])('GET', "/api/categories").then(function (response) {
-      return resolve(response);
-    }).catch(function (error) {
-      return reject(error);
-    });
-  });
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (getCategoriesXHR);
-
-/***/ }),
+/* 193 */,
 /* 194 */,
 /* 195 */,
 /* 196 */,
@@ -44522,13 +44522,13 @@ var AdminNav = function (_PureComponent) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_select2_wrapper__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_select2_wrapper__ = __webpack_require__(180);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_select2_wrapper___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_select2_wrapper__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__constants__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Question__ = __webpack_require__(363);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Messenger__ = __webpack_require__(367);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__createTestXHR__ = __webpack_require__(368);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__helpers_GetCategoriesXHR__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__helpers_GetCategoriesXHR__ = __webpack_require__(169);
 
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -45435,7 +45435,7 @@ var Messenger = function (_Component) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__ = __webpack_require__(31);
 
 
 
@@ -45461,7 +45461,7 @@ function _createTestXHR(data) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__constants__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__helpers_GetCategoriesXHR__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__helpers_GetCategoriesXHR__ = __webpack_require__(169);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__createCategoryXHR__ = __webpack_require__(370);
 
 
@@ -45631,7 +45631,7 @@ var CreateCategory = function (_Component) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__ = __webpack_require__(31);
 
 
 

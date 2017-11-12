@@ -31,7 +31,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-
 class Text extends Component {
 
   constructor(props) {
@@ -85,8 +84,8 @@ class Text extends Component {
     if (this.props.testState.currentTest.items) {
       answers = Object.values(JSON.parse(this.props.testState.currentTest.items)).map((item) => {
         return (
-          <div key={item.id} style={{padding: "50px"}}>
-            <div className="center-block test-shadow" style={{width: "800px", padding: "20px"}}>
+          <div key={item.id} className="padding-for-section">
+            <div className="center-block test-shadow section-for-tests">
               <h3>{item.question}</h3>
               <hr/>
               <Answers answers={item.answers} questionId={item.id}/>
@@ -99,7 +98,7 @@ class Text extends Component {
     let finishText = "";
     if (this.state.finishTest) {
       finishText = (
-        <h1 style={{color: "red", textAlign: "center"}}>
+        <h1 className="finish-text">
           You answered all questions !
         </h1>
       );
@@ -114,7 +113,7 @@ class Text extends Component {
         </Slider>
         <hr/>
         {finishText}
-        <div className="center-block" style={{width: "200px"}}>
+        <div className="center-block button-test-section">
           <button
             className={this.state.finishTest ? "btn btn-primary btn-block" : "btn btn-success btn-block"}
             onClick={this.onClickScrollNextSlider}

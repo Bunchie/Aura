@@ -9,9 +9,11 @@ use Crypt;
 
 class ResultController extends Controller
 {
+
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|
+     * \Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function store(Request $request)
     {

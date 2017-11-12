@@ -68,11 +68,11 @@ class Result extends Component {
     let result = (score * 100) / (Object.values(JSON.parse(this.props.testState.currentTest.items)).length * 100);
 
     return (
-      <section className="col-xs-12 test-shadow" style={{backgroundColor: "white", minHeight: "600px"}}>
+      <section className="col-xs-12 test-shadow test-section">
         <h2>{this.props.testState.currentTest.name}</h2>
         <hr/>
-        <div style={{textAlign: "center"}}>
-          <span style={{fontSize: "72px", color: "green"}}>Result: {result.toFixed()} % correct</span>
+        <div className="text-align-center">
+          <span className="result-test">Result: {result.toFixed()} % correct</span>
         </div>
         <hr/>
         <div className="btn-group ">

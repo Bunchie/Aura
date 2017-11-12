@@ -1948,56 +1948,6 @@ if (false) {
 
 /***/ }),
 /* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-
-
-var emptyObject = {};
-
-if (true) {
-  Object.freeze(emptyObject);
-}
-
-module.exports = emptyObject;
-
-/***/ }),
-/* 32 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2026,6 +1976,56 @@ function http(method, url) {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (http);
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+
+var emptyObject = {};
+
+if (true) {
+  Object.freeze(emptyObject);
+}
+
+module.exports = emptyObject;
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
 
 /***/ }),
 /* 34 */,
@@ -4121,7 +4121,7 @@ if (true) {
 
 var _assign = __webpack_require__(9);
 var invariant = __webpack_require__(14);
-var emptyObject = __webpack_require__(31);
+var emptyObject = __webpack_require__(32);
 var warning = __webpack_require__(15);
 var emptyFunction = __webpack_require__(10);
 var checkPropTypes = __webpack_require__(19);
@@ -5480,7 +5480,7 @@ var getActiveElement = __webpack_require__(68);
 var shallowEqual = __webpack_require__(69);
 var containsNode = __webpack_require__(70);
 var focusNode = __webpack_require__(73);
-var emptyObject = __webpack_require__(31);
+var emptyObject = __webpack_require__(32);
 var checkPropTypes = __webpack_require__(19);
 var hyphenateStyleName = __webpack_require__(74);
 var camelizeStyleName = __webpack_require__(76);
@@ -22313,7 +22313,7 @@ var freeGlobal = typeof global == 'object' && global && global.Object === Object
 
 /* harmony default export */ __webpack_exports__["a"] = (freeGlobal);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(32)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(33)))
 
 /***/ }),
 /* 87 */
@@ -22511,7 +22511,7 @@ if (typeof self !== 'undefined') {
 
 var result = (0, _ponyfill2['default'])(root);
 exports['default'] = result;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(32), __webpack_require__(41)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(33), __webpack_require__(41)(module)))
 
 /***/ }),
 /* 94 */
@@ -37903,6 +37903,28 @@ var HelperRoute = function HelperRoute(route) {
 /* 167 */,
 /* 168 */,
 /* 169 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__ = __webpack_require__(31);
+
+
+
+
+function getCategoriesXHR() {
+  return new Promise(function (resolve, reject) {
+    Object(__WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__["a" /* default */])('GET', "/api/categories").then(function (response) {
+      return resolve(response);
+    }).catch(function (error) {
+      return reject(error);
+    });
+  });
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (getCategoriesXHR);
+
+/***/ }),
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -37957,7 +37979,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 
 /***/ }),
-/* 170 */,
 /* 171 */,
 /* 172 */,
 /* 173 */,
@@ -37966,7 +37987,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 /* 176 */,
 /* 177 */,
 /* 178 */,
-/* 179 */
+/* 179 */,
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37994,7 +38016,7 @@ var _reactDom = __webpack_require__(30);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _shallowEqualFuzzy = __webpack_require__(180);
+var _shallowEqualFuzzy = __webpack_require__(181);
 
 var _shallowEqualFuzzy2 = _interopRequireDefault(_shallowEqualFuzzy);
 
@@ -38002,7 +38024,7 @@ var _jquery = __webpack_require__(164);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-__webpack_require__(181);
+__webpack_require__(182);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38274,7 +38296,7 @@ exports.default = Select2;
 module.exports = exports['default'];
 
 /***/ }),
-/* 180 */
+/* 181 */
 /***/ (function(module, exports) {
 
 // inlined http://underscorejs.org/ realization isString, isNumber
@@ -38382,7 +38404,7 @@ module.exports = shallowEqualFuzzy;
 
 
 /***/ }),
-/* 181 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var require;var require;/*!
@@ -44137,7 +44159,7 @@ S2.define('jquery.select2',[
 
 
 /***/ }),
-/* 182 */
+/* 183 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -44151,7 +44173,7 @@ function getCookie(name) {
 /* harmony default export */ __webpack_exports__["a"] = (getCookie);
 
 /***/ }),
-/* 183 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44169,7 +44191,7 @@ var _reactDom = __webpack_require__(30);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _trackHelper = __webpack_require__(190);
+var _trackHelper = __webpack_require__(191);
 
 var _objectAssign = __webpack_require__(9);
 
@@ -44526,13 +44548,13 @@ var helpers = {
 exports.default = helpers;
 
 /***/ }),
-/* 184 */,
 /* 185 */,
 /* 186 */,
 /* 187 */,
 /* 188 */,
 /* 189 */,
-/* 190 */
+/* 190 */,
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44694,7 +44716,7 @@ var getTrackLeft = exports.getTrackLeft = function getTrackLeft(spec) {
 };
 
 /***/ }),
-/* 191 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44761,7 +44783,7 @@ var defaultProps = {
 module.exports = defaultProps;
 
 /***/ }),
-/* 192 */
+/* 193 */
 /***/ (function(module, exports) {
 
 /**
@@ -44809,28 +44831,6 @@ module.exports = {
     each : each
 };
 
-
-/***/ }),
-/* 193 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__ = __webpack_require__(33);
-
-
-
-
-function getCategoriesXHR() {
-  return new Promise(function (resolve, reject) {
-    Object(__WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__["a" /* default */])('GET', "/api/categories").then(function (response) {
-      return resolve(response);
-    }).catch(function (error) {
-      return reject(error);
-    });
-  });
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (getCategoriesXHR);
 
 /***/ }),
 /* 194 */,
@@ -45127,8 +45127,8 @@ var TestPanel = function (_Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router_dom__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__constants__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__getTestsXHR__ = __webpack_require__(333);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__helpers_GetCategoriesXHR__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_select2_wrapper__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__helpers_GetCategoriesXHR__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_select2_wrapper__ = __webpack_require__(180);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_select2_wrapper___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react_select2_wrapper__);
 
 
@@ -45211,10 +45211,7 @@ var AllTests = function (_Component) {
 
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         "section",
-        {
-          className: "col-xs-12 test-shadow",
-          style: { backgroundColor: "white", minHeight: "600px", padding: "20px" }
-        },
+        { className: "col-xs-12 test-shadow test-section" },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "h3",
           null,
@@ -45273,7 +45270,7 @@ var AllTests = function (_Component) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__ = __webpack_require__(31);
 
 
 
@@ -45303,7 +45300,7 @@ function _getTestsXHR() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router_dom__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__constants__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__saveResultXHR__ = __webpack_require__(335);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__helpers_GetCookie__ = __webpack_require__(182);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__helpers_GetCookie__ = __webpack_require__(183);
 
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -45392,7 +45389,7 @@ var Result = function (_Component) {
 
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         "section",
-        { className: "col-xs-12 test-shadow", style: { backgroundColor: "white", minHeight: "600px" } },
+        { className: "col-xs-12 test-shadow test-section" },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "h2",
           null,
@@ -45401,10 +45398,10 @@ var Result = function (_Component) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("hr", null),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "div",
-          { style: { textAlign: "center" } },
+          { className: "text-align-center" },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             "span",
-            { style: { fontSize: "72px", color: "green" } },
+            { className: "result-test" },
             "Result: ",
             result.toFixed(),
             " % correct"
@@ -45439,7 +45436,7 @@ var Result = function (_Component) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__ = __webpack_require__(31);
 
 
 
@@ -45575,10 +45572,10 @@ var Text = function (_Component) {
         answers = Object.values(JSON.parse(this.props.testState.currentTest.items)).map(function (item) {
           return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             "div",
-            { key: item.id, style: { padding: "50px" } },
+            { key: item.id, className: "padding-for-section" },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               "div",
-              { className: "center-block test-shadow", style: { width: "800px", padding: "20px" } },
+              { className: "center-block test-shadow section-for-tests" },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 "h3",
                 null,
@@ -45595,7 +45592,7 @@ var Text = function (_Component) {
       if (this.state.finishTest) {
         finishText = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "h1",
-          { style: { color: "red", textAlign: "center" } },
+          { className: "finish-text" },
           "You answered all questions !"
         );
       }
@@ -45618,7 +45615,7 @@ var Text = function (_Component) {
         finishText,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "div",
-          { className: "center-block", style: { width: "200px" } },
+          { className: "center-block button-test-section" },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             "button",
             {
@@ -45671,7 +45668,7 @@ var _json2mq = __webpack_require__(347);
 
 var _json2mq2 = _interopRequireDefault(_json2mq);
 
-var _defaultProps = __webpack_require__(191);
+var _defaultProps = __webpack_require__(192);
 
 var _defaultProps2 = _interopRequireDefault(_defaultProps);
 
@@ -45829,7 +45826,7 @@ var _eventHandlers = __webpack_require__(340);
 
 var _eventHandlers2 = _interopRequireDefault(_eventHandlers);
 
-var _helpers = __webpack_require__(183);
+var _helpers = __webpack_require__(184);
 
 var _helpers2 = _interopRequireDefault(_helpers);
 
@@ -45837,7 +45834,7 @@ var _initialState = __webpack_require__(341);
 
 var _initialState2 = _interopRequireDefault(_initialState);
 
-var _defaultProps = __webpack_require__(191);
+var _defaultProps = __webpack_require__(192);
 
 var _defaultProps2 = _interopRequireDefault(_defaultProps);
 
@@ -45845,7 +45842,7 @@ var _createReactClass = __webpack_require__(342);
 
 var _createReactClass2 = _interopRequireDefault(_createReactClass);
 
-var _classnames = __webpack_require__(169);
+var _classnames = __webpack_require__(170);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -46106,9 +46103,9 @@ var InnerSlider = exports.InnerSlider = (0, _createReactClass2.default)({
 
 exports.__esModule = true;
 
-var _trackHelper = __webpack_require__(190);
+var _trackHelper = __webpack_require__(191);
 
-var _helpers = __webpack_require__(183);
+var _helpers = __webpack_require__(184);
 
 var _helpers2 = _interopRequireDefault(_helpers);
 
@@ -46573,7 +46570,7 @@ module.exports = factory(
 
 var _assign = __webpack_require__(9);
 
-var emptyObject = __webpack_require__(31);
+var emptyObject = __webpack_require__(32);
 var _invariant = __webpack_require__(14);
 
 if (true) {
@@ -47451,7 +47448,7 @@ var _objectAssign = __webpack_require__(9);
 
 var _objectAssign2 = _interopRequireDefault(_objectAssign);
 
-var _classnames = __webpack_require__(169);
+var _classnames = __webpack_require__(170);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -47623,7 +47620,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(169);
+var _classnames = __webpack_require__(170);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -47718,11 +47715,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(169);
+var _classnames = __webpack_require__(170);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _helpers = __webpack_require__(183);
+var _helpers = __webpack_require__(184);
 
 var _helpers2 = _interopRequireDefault(_helpers);
 
@@ -47937,7 +47934,7 @@ module.exports = new MediaQueryDispatch();
 /***/ (function(module, exports, __webpack_require__) {
 
 var MediaQuery = __webpack_require__(352);
-var Util = __webpack_require__(192);
+var Util = __webpack_require__(193);
 var each = Util.each;
 var isFunction = Util.isFunction;
 var isArray = Util.isArray;
@@ -48028,7 +48025,7 @@ module.exports = MediaQueryDispatch;
 /***/ (function(module, exports, __webpack_require__) {
 
 var QueryHandler = __webpack_require__(353);
-var each = __webpack_require__(192).each;
+var each = __webpack_require__(193).each;
 
 /**
  * Represents a single media query, manages it's state and registered handlers for this query
@@ -48207,7 +48204,7 @@ module.exports = QueryHandler;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_AxiosRequest__ = __webpack_require__(31);
 
 
 

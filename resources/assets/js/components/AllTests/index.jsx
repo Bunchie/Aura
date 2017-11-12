@@ -69,10 +69,7 @@ class AllTests extends Component {
   render() {
 
     return (
-      <section
-        className="col-xs-12 test-shadow"
-        style={{backgroundColor: "white", minHeight: "600px", padding: "20px"}}
-      >
+      <section className="col-xs-12 test-shadow test-section">
         <h3>Category test</h3>
         <div className="form-inline">
           <Select2
