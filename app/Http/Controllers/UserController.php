@@ -21,7 +21,23 @@ class UserController extends Controller
 
             try {
 
-                return response()->json($user->with('results.tests')->find(Crypt::decrypt($userId)), 200);
+                $result = array();
+
+                $resultsCollection = $user->with('results.tests')->find(Crypt::decrypt($userId));
+
+                foreach ($resultsCollection->toArray() as $result) {
+
+                    if (!empty($result['results'])) {
+
+                        foreach ($result['results'] as $item) {
+                            array_push($result, $item);
+                        }
+
+                    }
+
+                }
+
+                return response()->json($result, 200);
 
             } catch (Exception $e) {
 

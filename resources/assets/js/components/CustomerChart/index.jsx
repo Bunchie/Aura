@@ -42,23 +42,28 @@ class CustomerChart extends Component {
 
   render() {
 
-    console.log(this.props.customerState);
+    let lablesResult = this.props.customerState.results.map((lable) => {
+      return lable.tests.name;
+    });
+
+    let dataResults = this.props.customerState.results.map((lable) => {
+      return lable.result;
+    });
 
     const data = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      labels: lablesResult,
       datasets: [
         {
-          label: 'My First dataset',
-          backgroundColor: 'rgba(255,99,132,0.2)',
-          borderColor: 'rgba(255,99,132,1)',
+          label: 'Test results',
+          backgroundColor: 'rgba(99, 107, 111, 0.65)',
+          borderColor: 'rgba(75, 192, 192, 1)',
           borderWidth: 1,
-          hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-          hoverBorderColor: 'rgba(255,99,132,1)',
-          data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40]
+          hoverBackgroundColor: 'rgba(75, 192, 192, 1)',
+          hoverBorderColor: 'rgba(75, 192, 192, 1)',
+          data: dataResults
         }
       ]
     };
-
 
     return (
       <section className="test-section test-shadow">
@@ -67,7 +72,14 @@ class CustomerChart extends Component {
           width={100}
           height={50}
           options={{
-            maintainAspectRatio: false
+            maintainAspectRatio: false,
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
           }}
         />
       </section>

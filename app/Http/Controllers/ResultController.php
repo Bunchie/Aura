@@ -21,13 +21,10 @@ class ResultController extends Controller
 
                 $user_id = Crypt::decrypt($request->input('user_id'));
 
-                $test = new Result([
-                    'test' => $request->input('test'),
-                    'result' => $request->input('result'),
-                    'user' => intval($user_id),
-                ]);
-
-                $test->save();
+                Result::updateOrCreate(
+                    ['test' => $request->input('test'), 'user' => intval($user_id)],
+                    ['result' => $request->input('result')]
+                );
 
                 return response(201);
 

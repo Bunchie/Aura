@@ -61,7 +61,9 @@ class TestController extends Controller
                     $resultTests = $this->unique_multidim_array($tests, 'id');
 
                 } else {
+
                     $resultTests = Test::all();
+
                 }
 
                 return response()->json($resultTests, 200);
