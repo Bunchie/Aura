@@ -12,11 +12,12 @@
 */
 
 Route::get('/tests', 'TestController@index');
-Route::get('/categories', 'CategoryController@index');
-
 Route::get('/test/{id}', 'TestController@show');
-
 Route::post('/create-test', 'TestController@store');
+
+Route::get('/categories', 'CategoryController@index');
 Route::post('/create-category', 'CategoryController@store');
+
+Route::get('/results/{userId}', 'UserController@results');
 
 Route::post('/save-result', 'ResultController@store');

@@ -1,7 +1,6 @@
 "use strict";
 
 import thunk from 'redux-thunk';
-
 import history from '../history';
 import reducers from '../reducers';
 

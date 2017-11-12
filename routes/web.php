@@ -22,9 +22,16 @@ Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
     })->where('any', '.*');
 });
 
+Route::group(['prefix' => '/customer', 'middleware' => 'auth'], function () {
+    Route::get('/', function () {
+        return view('customer_panel.index');
+    });
+    Route::get('{any}', function () {
+        return view('customer_panel.index');
+    })->where('any', '.*');
+});
+
 Route::get('{any}', function () {
-
-    Cookie::queue('UI', Auth::id(), 1500, null, null, false, false);
-
+    Cookie::queue('UI', Auth::id(), 6500, null, null, false, false);
     return view('test_panel.index');
 })->where('any', '.*');

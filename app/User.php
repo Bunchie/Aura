@@ -14,18 +14,14 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $fillable = ['name', 'email', 'password'];
 
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -33,6 +29,14 @@ class User extends Authenticatable
     public function userType()
     {
         return $this->belongsToMany(UserType::class, 'users', 'user_type', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function results()
+    {
+        return $this->hasMany(Result::class, 'user', 'id');
     }
 
     /**

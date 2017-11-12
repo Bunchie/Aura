@@ -9,27 +9,39 @@ use Crypt;
 
 class ResultController extends Controller
 {
-
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function store(Request $request)
     {
+        if ($request->ajax()) {
 
-        $user_id = Crypt::decrypt($request->input('user_id'));
+            try {
 
-        $test = new Result([
-            'test' => $request->input('test'),
-            'result' => $request->input('result'),
-            'user' => intval($user_id),
-        ]);
+                $user_id = Crypt::decrypt($request->input('user_id'));
 
-        $test->save();
+                $test = new Result([
+                    'test' => $request->input('test'),
+                    'result' => $request->input('result'),
+                    'user' => intval($user_id),
+                ]);
 
-        return response(201);
+                $test->save();
+
+                return response(201);
+
+            } catch (Exception $e) {
+
+                return response()->json(['error' => $e], 501);
+
+            }
+
+        } else {
+
+            return response()->json(["error" => "Bad Request"], 400);
+
+        }
     }
 
 }
