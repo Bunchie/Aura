@@ -15,9 +15,11 @@ class CreateResultsTable extends Migration
     {
         Schema::create('results', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('test');
-            $table->integer('user');
+            $table->integer('test')->unsigned()->index();
+            $table->integer('user')->unsigned()->index();
             $table->integer('result');
+            $table->foreign('test')->references('id')->on('tests');
+            $table->foreign('user')->references('id')->on('users');
             $table->timestamps();
         });
     }

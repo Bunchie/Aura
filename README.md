@@ -8,7 +8,7 @@
    5. Push into console php artisan serve
    
 # Problems that may arise
-   1. app may want to -> php70w-mysqlnd
+    app may want to -> php70w-mysqlnd
 
 # Users
 

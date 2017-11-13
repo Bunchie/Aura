@@ -15,8 +15,10 @@ class CreateTestCategoriesTable extends Migration
     {
         Schema::create('test_categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('category');
-            $table->integer('test');
+            $table->integer('category')->unsigned()->index();
+            $table->integer('test')->unsigned()->index();
+            $table->foreign('category')->references('id')->on('categories');
+            $table->foreign('test')->references('id')->on('tests');
             $table->timestamps();
         });
     }
