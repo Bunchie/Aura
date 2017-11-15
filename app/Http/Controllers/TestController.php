@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use App\TestCategory;
 use Illuminate\Http\Request;
 use App\Test;
@@ -12,73 +11,27 @@ class TestController extends Controller
 {
 
     /**
-     * @param $array
-     * @param $key
-     * @return array
-     */
-    function unique_multidim_array($array, $key)
-    {
-        $temp_array = array();
-        $i = 0;
-        $key_array = array();
-
-        foreach ($array as $val) {
-            if (!in_array($val[$key], $key_array)) {
-                $key_array[$i] = $val[$key];
-                $temp_array[$i] = $val;
-            }
-            $i++;
-        }
-        return $temp_array;
-    }
-
-    /**
-     * @param Request $request
-     * @param Category $category
+     * @param Test $test
      * @param $categories
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request, Category $category, $categories)
+    public function index(Test $test, $categories)
     {
-        if ($request->ajax()) {
+        if ((boolean)$categories) {
 
-            $tests = array();
-
-            try {
-
-                if ((boolean)$categories) {
-                    $categoriesArray = $category->with('testCategories')
-                        ->whereIn('id', explode(",", $categories))->get()->toArray();
-
-                    foreach ($categoriesArray as $category) {
-                        if (!empty($category['test_categories'])) {
-                            foreach ($category['test_categories'] as $test) {
-                                array_push($tests, $test);
-                            }
-                        }
-                    }
-
-                    $resultTests = $this->unique_multidim_array($tests, 'id');
-
-                } else {
-
-                    $resultTests = Test::all();
-
-                }
-
-                return response()->json($resultTests, 200);
-
-            } catch (Exception $e) {
-
-                return response()->json(['error' => $e], 501);
-
+            $resultTests = $test->whereHas(
+                'testCategories', function ($query) use ($categories) {
+                $query->whereIn('category', explode(",", $categories));
             }
+            )->get()->toArray();
 
         } else {
 
-            return response()->json(["error" => "Bad Request"], 400);
+            $resultTests = $test->all();
 
         }
+
+        return response()->json($resultTests, 200);
     }
 
     /**
@@ -89,69 +42,37 @@ class TestController extends Controller
      */
     public function store(Request $request, Test $test, TestCategory $testCategory)
     {
-        if ($request->ajax()) {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:tests|max:255',
+            'categories' => 'required',
+            'items' => 'required',
+        ]);
 
-            $validator = Validator::make($request->all(), [
-                'name' => 'required|unique:tests|max:255',
-                'categories' => 'required',
-                'items' => 'required',
-            ]);
+        if ($validator->passes()) {
 
-            if ($validator->passes()) {
+            $test->fill($request->all())->save();
+            $categories = explode(",", $request->input('categories'));
 
-                try {
+            $data = array_map(function ($category) use ($test) {
+                return ["category" => $category, "test" => $test->id];
+            }, $categories);
 
-                    $test->fill($request->all())->save();
-                    $categories = explode(",", $request->input('categories'));
+            $testCategory->insert($data);
 
-                    $data = array_map(function ($v) use ($test) {
-                        return ["category" => $v, "test" => $test->id];
-                    }, $categories);
-
-                    $testCategory->insert($data);
-
-                    return response()->json(['success' => 'Created new test.', 201]);
-
-                } catch (Exception $e) {
-
-                    return response()->json(['error' => $e], 501);
-
-                }
-
-            }
-
-            return response()->json(['error' => $validator->errors()->all()], 422);
-
-        } else {
-
-            return response()->json(["error" => "Bad Request"], 400);
+            return response()->json(['success' => 'Created new test.', 201]);
 
         }
+
+        return response()->json(['error' => $validator->errors()->all()], 422);
     }
 
     /**
-     * @param Request $request
+     * @param Test $test
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Request $request, $id)
+    public function show(Test $test, $id)
     {
-        if ($request->ajax()) {
-
-            try {
-
-                return response()->json(Test::find($id), 200);
-
-            } catch (Exception $e) {
-
-                return response()->json(['error' => $e], 501);
-
-            }
-
-        } else {
-
-            return response()->json(["error" => "Bad Request"], 400);
-
-        }
+        return response()->json($test->find($id), 200);
     }
 }

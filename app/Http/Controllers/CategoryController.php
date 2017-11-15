@@ -9,28 +9,12 @@ class CategoryController extends Controller
 {
 
     /**
-     * @param Request $request
+     * @param Category $category
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
+    public function index(Category $category)
     {
-        if ($request->ajax()) {
-
-            try {
-
-                return response()->json(Category::all(), 200);
-
-            } catch (Exception $e) {
-
-                return response()->json(['error' => $e], 501);
-
-            }
-
-        } else {
-
-            return response()->json(["error" => "Bad Request"], 400);
-
-        }
+        return response()->json($category->all(), 200);
     }
 
     /**
@@ -41,29 +25,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->ajax()) {
+        $test = new Category([
+            'name' => $request->input('name'),
+        ]);
 
-            try {
+        $test->save();
 
-                $test = new Category([
-                    'name' => $request->input('name'),
-                ]);
-
-                $test->save();
-
-                return response(201);
-
-            } catch (Exception $e) {
-
-                return response()->json(['error' => $e], 501);
-
-            }
-
-        } else {
-
-            return response()->json(["error" => "Bad Request"], 400);
-
-        }
+        return response(201);
     }
 
 }

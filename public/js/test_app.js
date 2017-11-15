@@ -45195,9 +45195,9 @@ var AllTests = function (_Component) {
 
       var categories = this.refs.tags.el.select2('data').map(function (items) {
         return items.id;
-      });
+      }).join(",") || 0;
 
-      if (Boolean(categories.join(","))) this.props.getTests(categories.join(","));
+      this.props.getTests(categories);
     }
   }, {
     key: "componentDidMount",

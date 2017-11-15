@@ -9,45 +9,31 @@ use Crypt;
 
 class UserController extends Controller
 {
+
     /**
-     * @param Request $request
      * @param User $user
      * @param $userId
      * @return \Illuminate\Http\JsonResponse
      */
-    public function results(Request $request, User $user, $userId)
+    public function results(User $user, $userId)
     {
-        if ($request->ajax()) {
+        $result = array();
 
-            try {
+        $resultsCollection = $user->with('results.tests')->find(Crypt::decrypt($userId));
 
-                $result = array();
+        foreach ($resultsCollection->toArray() as $result) {
 
-                $resultsCollection = $user->with('results.tests')->find(Crypt::decrypt($userId));
+            if (!empty($result['results'])) {
 
-                foreach ($resultsCollection->toArray() as $result) {
-
-                    if (!empty($result['results'])) {
-
-                        foreach ($result['results'] as $item) {
-                            array_push($result, $item);
-                        }
-
-                    }
-
+                foreach ($result['results'] as $item) {
+                    array_push($result, $item);
                 }
 
-                return response()->json($result, 200);
-
-            } catch (Exception $e) {
-
-                return response()->json(['error' => $e], 501);
             }
 
-        } else {
-
-            return response()->json(["error" => "Bad Request"], 400);
         }
+
+        return response()->json($result, 200);
     }
 
 }

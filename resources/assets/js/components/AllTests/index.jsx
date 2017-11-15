@@ -55,10 +55,9 @@ class AllTests extends Component {
 
     let categories = this.refs.tags.el.select2('data').map((items) => {
       return items.id;
-    });
+    }).join(",") || 0;
 
-    if (Boolean(categories.join(",")))
-      this.props.getTests(categories.join(","));
+    this.props.getTests(categories);
   }
 
   componentDidMount() {

@@ -17,30 +17,14 @@ class ResultController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->ajax()) {
+        $user_id = Crypt::decrypt($request->input('user_id'));
 
-            try {
+        Result::updateOrCreate(
+            ['test' => $request->input('test'), 'user' => intval($user_id)],
+            ['result' => $request->input('result')]
+        );
 
-                $user_id = Crypt::decrypt($request->input('user_id'));
-
-                Result::updateOrCreate(
-                    ['test' => $request->input('test'), 'user' => intval($user_id)],
-                    ['result' => $request->input('result')]
-                );
-
-                return response(201);
-
-            } catch (Exception $e) {
-
-                return response()->json(['error' => $e], 501);
-
-            }
-
-        } else {
-
-            return response()->json(["error" => "Bad Request"], 400);
-
-        }
+        return response(201);
     }
 
 }
